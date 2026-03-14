@@ -248,5 +248,5 @@ MVP段階でも以下の方法で検証を行う予定です。
 - Render: デプロイと運用が容易
 - Docker: 環境差異をなくすため
 
-### 画面遷移
+### 画面遷移図
 Figma：https://www.figma.com/design/bgEjUDM6iRyGmORbmGdGzV/LifeBranch?node-id=0-1&t=OfHuxjsPQjA4IY0s-1
