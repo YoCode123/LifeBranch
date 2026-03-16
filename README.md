@@ -250,3 +250,6 @@ MVP段階でも以下の方法で検証を行う予定です。
 
 ### 画面遷移図
 Figma：https://www.figma.com/design/bgEjUDM6iRyGmORbmGdGzV/LifeBranch?node-id=0-1&t=OfHuxjsPQjA4IY0s-1
+
+### ER図
+[![Image from Gyazo](https://i.gyazo.com/a2eaf078e7928972f34e6a5e1474f67e.png)](https://gyazo.com/a2eaf078e7928972f34e6a5e1474f67e)
