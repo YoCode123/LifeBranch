@@ -6,13 +6,11 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
  def after_sign_in_path_for(resource)
-    if resource.first_login?
-      flash[:notice] = "初回ログインおめでとうございます！"
-      # 初回ログイン専用ページにリダイレクトしたい場合はここで指定
-      # first_login_path
-      resource.update(first_login: false)
+    if !resource.first_login_done?
+      resource.update(first_login_done: true)
+      guide_path
+    else
+      super
     end
-
-    super # 通常は元々のリダイレクト先
   end
 end

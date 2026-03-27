@@ -31,11 +31,6 @@
       <%= link_to "新規登録", new_user_registration_path %>
     <% end %>
   </header>
-
-  <% if flash[:notice] %>
-   <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-
   <%= yield %>
 </body>
 </html>
