@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "guide", to: "guides#show"
   devise_for :users
   get "home/index"
   root "home#index"

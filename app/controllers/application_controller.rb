@@ -7,12 +7,10 @@ class ApplicationController < ActionController::Base
 
  def after_sign_in_path_for(resource)
     if resource.first_login?
-      flash[:notice] = "初回ログインおめでとうございます！"
-      # 初回ログイン専用ページにリダイレクトしたい場合はここで指定
-      # first_login_path
       resource.update(first_login: false)
+      guide_path
+    else
+      super
     end
-
-    super # 通常は元々のリダイレクト先
   end
 end
