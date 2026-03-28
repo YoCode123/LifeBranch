@@ -1,0 +1,12 @@
+<h1>決断一覧</h1>
+
+<% @decisions.each do |decision| %>
+  <div>
+    <h2><%= decision.title %></h2>
+    <p><%= decision.created_at.strftime("%Y/%m/%d") %></p>
+  </div>
+<% end %>
+
+<% if @decisions.empty? %>
+  <p>まだ決断がありません</p>
+<% end %>
