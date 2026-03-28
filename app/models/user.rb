@@ -8,4 +8,6 @@ class User < ApplicationRecord
   def first_login?
     sign_in_count <= 1
   end
+
+  has_many :decisions, dependent: :destroy
 end
