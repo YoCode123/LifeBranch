@@ -4,4 +4,8 @@ class DecisionsController < ApplicationController
   def index
     @decisions = current_user.decisions.order(created_at: :desc).limit(20)
   end
+
+  def show
+    @decision = current_user.decisions.find(params[:id])
+  end
 end
