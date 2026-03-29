@@ -1,0 +1,14 @@
+<h1>決断作成</h1>
+
+<%= form_with model: @decision do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.submit "作成する" %>
+  </div>
+<% end %>
+
+<%= link_to "一覧に戻る", decisions_path %>
