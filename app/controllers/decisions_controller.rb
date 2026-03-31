@@ -1,4 +1,3 @@
-# app/controllers/decisions_controller.rb
 class DecisionsController < ApplicationController
   before_action :authenticate_user!
 
@@ -18,9 +17,23 @@ class DecisionsController < ApplicationController
     @decision = current_user.decisions.build(decision_params)
 
     if @decision.save
-      redirect_to decisions_path, notice: "決断を作成しました！"
+      redirect_to decisions_path, notice: "Decisionを作成しました！"
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @decision = current_user.decisions.find(params[:id])
+  end
+
+  def update
+    @decision = current_user.decisions.find(params[:id])
+
+    if @decision.update(decision_params)
+      redirect_to decision_path(@decision), notice: "更新しました！"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

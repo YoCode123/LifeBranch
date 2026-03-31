@@ -1,0 +1,14 @@
+<h1>決断編集</h1>
+
+<%= form_with model: @decision do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<%= link_to "戻る", decision_path(@decision) %>
