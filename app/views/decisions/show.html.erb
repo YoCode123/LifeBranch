@@ -5,4 +5,6 @@
 <p>作成日: <%= @decision.created_at.strftime("%Y/%m/%d") %></p>
 
 <%= link_to "編集", edit_decision_path(@decision) %>
+<%= link_to "削除", decision_path(@decision),
+  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
 <%= link_to "一覧に戻る", decisions_path %>
