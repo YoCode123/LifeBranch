@@ -37,6 +37,13 @@ class DecisionsController < ApplicationController
     end
   end
 
+  def destroy
+    @decision = current_user.decisions.find(params[:id])
+    @decision.destroy
+
+    redirect_to decisions_path, notice: "削除しました！"
+  end
+
   private
 
   def decision_params
