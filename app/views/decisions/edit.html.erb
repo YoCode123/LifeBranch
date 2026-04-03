@@ -1,5 +1,16 @@
 <h1>決断編集</h1>
 
+<% if @decision.errors.any? %>
+  <div>
+    <h2><%= @decision.errors.count %>件のエラーがあります</h2>
+    <ul>
+      <% @decision.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @decision do |f| %>
   <div>
     <%= f.label :title, "タイトル" %><br>
