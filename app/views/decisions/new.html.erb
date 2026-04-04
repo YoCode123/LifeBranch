@@ -18,6 +18,11 @@
   </div>
 
   <div>
+    <%= f.label :category_id, "カテゴリ" %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "選択してください" %>
+  </div>
+
+  <div>
     <%= f.submit "作成する" %>
   </div>
 <% end %>
