@@ -47,6 +47,6 @@ class DecisionsController < ApplicationController
   private
 
   def decision_params
-    params.require(:decision).permit(:title)
+    params.require(:decision).permit(:title, :category_id)
   end
 end
