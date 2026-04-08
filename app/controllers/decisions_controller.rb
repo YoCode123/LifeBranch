@@ -7,6 +7,7 @@ class DecisionsController < ApplicationController
 
   def show
     @decision = current_user.decisions.find(params[:id])
+    @options = @decision.options
   end
 
   def new

@@ -4,6 +4,23 @@
 <p>カテゴリ: <%= @decision.category&.name || "未設定"  %></p>
 <p>作成日: <%= @decision.created_at.strftime("%Y/%m/%d") %></p>
 
+<hr>
+
+<h3>選択肢</h3>
+
+<ul>
+  <% @decision.options.each do |option| %>
+    <li><%= option.content %></li>
+  <% end %>
+</ul>
+
+<%= form_with model: [@decision, Option.new], local: true do |f| %>
+  <%= f.text_field :content %>
+  <%= f.submit "追加" %>
+<% end %>
+
+<hr>
+
 <%= link_to "編集", edit_decision_path(@decision) %>
 <%= link_to "削除", decision_path(@decision),
   data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
