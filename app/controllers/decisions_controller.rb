@@ -12,6 +12,7 @@ class DecisionsController < ApplicationController
 
   def new
     @decision = Decision.new
+    3.times { @decision.options.build }
   end
 
   def create
@@ -26,6 +27,7 @@ class DecisionsController < ApplicationController
 
   def edit
     @decision = current_user.decisions.find(params[:id])
+    @decision.options.build if @decision.options.empty?
   end
 
   def update
@@ -48,6 +50,10 @@ class DecisionsController < ApplicationController
   private
 
   def decision_params
-    params.require(:decision).permit(:title, :category_id)
+    params.require(:decision).permit(
+      :title,
+      :category_id,
+      options_attributes: [:id, :content, :_destroy]
+      )
   end
 end
