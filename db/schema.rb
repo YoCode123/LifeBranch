@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_09_134217) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_09_140247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,6 +18,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_09_134217) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "decision_emotions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "decision_id", null: false
+    t.bigint "emotion_type_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decision_id"], name: "index_decision_emotions_on_decision_id"
+    t.index ["emotion_type_id"], name: "index_decision_emotions_on_emotion_type_id"
   end
 
   create_table "decisions", force: :cascade do |t|
@@ -63,6 +72,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_09_134217) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "decision_emotions", "decisions"
+  add_foreign_key "decision_emotions", "emotion_types"
   add_foreign_key "decisions", "categories"
   add_foreign_key "decisions", "users"
   add_foreign_key "options", "decisions"
