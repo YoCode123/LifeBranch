@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_05_124923) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_09_134217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,6 +29,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_05_124923) do
     t.bigint "user_id", null: false
     t.index ["category_id"], name: "index_decisions_on_category_id"
     t.index ["user_id"], name: "index_decisions_on_user_id"
+  end
+
+  create_table "emotion_types", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 
   create_table "options", force: :cascade do |t|
