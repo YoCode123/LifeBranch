@@ -6,6 +6,16 @@
 
 <hr>
 
+<h3>感情</h3>
+
+<ul>
+  <% @decision.emotion_types.each do |emotion| %>
+    <li><%= emotion.name %></li>
+  <% end %>
+</ul>
+
+<hr>
+
 <h3>選択肢</h3>
 
 <ul>

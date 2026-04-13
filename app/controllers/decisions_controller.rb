@@ -53,7 +53,8 @@ class DecisionsController < ApplicationController
     params.require(:decision).permit(
       :title,
       :category_id,
-      options_attributes: [:id, :content, :_destroy]
+      options_attributes: [:id, :content, :_destroy],
+      emotion_type_ids: []
       )
   end
 end

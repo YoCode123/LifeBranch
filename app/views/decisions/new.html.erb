@@ -24,9 +24,22 @@
 
   <hr>
 
-   <%= f.fields_for :options do |option_form| %>
+  <h3>選択肢</h3>
+
+  <%= f.fields_for :options do |option_form| %>
     <div>
       <%= option_form.text_field :content %>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <h3>感情</h3>
+
+  <% EmotionType.all.each do |emotion| %>
+    <div>
+      <%= check_box_tag "decision[emotion_type_ids][]", emotion.id, @decision.emotion_type_ids.include?(emotion.id) %>
+      <%= emotion.name %>
     </div>
   <% end %>
 

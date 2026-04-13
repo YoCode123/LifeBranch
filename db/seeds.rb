@@ -10,3 +10,8 @@
 Category.create(name: "仕事")
 Category.create(name: "恋愛")
 Category.create(name: "お金")
+EmotionType.create!(name: "嬉しい")
+EmotionType.create!(name: "不安")
+EmotionType.create!(name: "後悔")
+EmotionType.create!(name: "ワクワク")
+EmotionType.create!(name: "安心")
