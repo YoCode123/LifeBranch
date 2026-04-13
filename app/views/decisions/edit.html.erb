@@ -14,7 +14,7 @@
 <%= form_with model: @decision, local: true do |f| %>
   <div>
     <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title, class: "form-control" %>
+    <%= f.text_field :title, class: "form-control mb-3" %>
   </div>
 
   <div>
@@ -46,8 +46,8 @@
   <% end %>
 
   <div>
-    <%= f.submit "更新する" %>
+    <%= f.submit "更新する", class: "btn btn-primary w-100" %>
   </div>
 <% end %>
 
-<%= link_to "戻る", decision_path(@decision) %>
+<%= link_to "戻る", decision_path(@decision), class: "btn btn-secondary w-100 mt-2" %>

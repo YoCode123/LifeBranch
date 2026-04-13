@@ -18,14 +18,14 @@
 
 <h3>選択肢</h3>
 
-<ul>
+<ul class="list-group">
   <% @decision.options.each do |option| %>
-    <li><%= option.content %></li>
+    <li class="list-group-item"><%= option.content %></li>
   <% end %>
 </ul>
 
 <%= form_with model: [@decision, Option.new], local: true do |f| %>
-  <%= f.text_field :content %>
+  <%= f.text_field :content, class: "form-control mb-2" %>
   <%= f.submit "追加" %>
 <% end %>
 
