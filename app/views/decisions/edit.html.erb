@@ -34,6 +34,17 @@
     </div>
   <% end %>
 
+  <hr>
+
+  <h3>感情</h3>
+
+  <% EmotionType.all.each do |emotion| %>
+    <div>
+      <%= check_box_tag "decision[emotion_type_ids][]", emotion.id, @decision.emotion_type_ids.include?(emotion.id) %>
+      <%= emotion.name %>
+    </div>
+  <% end %>
+
   <div>
     <%= f.submit "更新する" %>
   </div>
