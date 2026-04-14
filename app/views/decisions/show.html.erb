@@ -1,24 +1,28 @@
-<h1>決断詳細</h1>
+<h1 class="mb-4">決断詳細</h1>
 
-<h2><%= @decision.title %></h2>
-<p>カテゴリ: <%= @decision.category&.name || "未設定"  %></p>
-<p>作成日: <%= @decision.created_at.strftime("%Y/%m/%d") %></p>
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title"><%= @decision.title %></h2>
+    <p class="card-text">カテゴリ: <%= @decision.category&.name || "未設定" %></p>
+    <p class="card-text">作成日: <%= @decision.created_at.strftime("%Y/%m/%d") %></p>
+  </div>
+</div>
 
 <hr>
 
 <h3>感情</h3>
 
-<ul>
+<div class="mb-3">
   <% @decision.emotion_types.each do |emotion| %>
-    <li><%= emotion.name %></li>
+    <span class="badge bg-primary me-1"><%= emotion.name %></span>
   <% end %>
-</ul>
+</div>
 
 <hr>
 
 <h3>選択肢</h3>
 
-<ul class="list-group">
+<ul class="list-group mb-3">
   <% @decision.options.each do |option| %>
     <li class="list-group-item"><%= option.content %></li>
   <% end %>
@@ -31,7 +35,9 @@
 
 <hr>
 
-<%= link_to "編集", edit_decision_path(@decision) %>
-<%= link_to "削除", decision_path(@decision),
-  data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-<%= link_to "一覧に戻る", decisions_path %>
+<div class="d-flex gap-2">
+  <%= link_to "編集", edit_decision_path(@decision), class: "btn btn-warning" %>
+  <%= link_to "削除", decision_path(@decision),
+      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+      class: "btn btn-danger" %>
+</div>
