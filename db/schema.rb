@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_09_140247) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_124055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_09_140247) do
     t.datetime "created_at", null: false
     t.bigint "decision_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["decision_id", "content"], name: "index_options_on_decision_id_and_content", unique: true
     t.index ["decision_id"], name: "index_options_on_decision_id"
   end
 
