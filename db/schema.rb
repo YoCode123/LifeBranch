@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_124055) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_144207) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,10 +33,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_124055) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.text "description"
+    t.bigint "selected_option_id"
     t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["category_id"], name: "index_decisions_on_category_id"
+    t.index ["selected_option_id"], name: "index_decisions_on_selected_option_id"
     t.index ["user_id"], name: "index_decisions_on_user_id"
   end
 
@@ -76,6 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_124055) do
   add_foreign_key "decision_emotions", "decisions"
   add_foreign_key "decision_emotions", "emotion_types"
   add_foreign_key "decisions", "categories"
+  add_foreign_key "decisions", "options", column: "selected_option_id"
   add_foreign_key "decisions", "users"
   add_foreign_key "options", "decisions"
 end

@@ -1,6 +1,7 @@
 class Decision < ApplicationRecord
   belongs_to :user
   belongs_to :category, optional: true
+  belongs_to :selected_option, class_name: 'Option', optional: true
   has_many :decision_emotions, dependent: :destroy
   has_many :emotion_types, through: :decision_emotions
   has_many :options, dependent: :destroy
