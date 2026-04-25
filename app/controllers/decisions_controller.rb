@@ -54,6 +54,7 @@ class DecisionsController < ApplicationController
       :title,
       :category_id,
       :selected_option_id,
+      :reason,
       options_attributes: [:id, :content, :_destroy],
       emotion_type_ids: []
     )

@@ -61,6 +61,12 @@
 
 <hr>
 
+ <% if @decision.reason.present? %>
+  <p><%= @decision.reason %></p>
+ <% end %>
+
+<hr>
+
 <%= form_with model: [@decision, Option.new], local: true do |f| %>
   <%= f.text_field :content, class: "form-control mb-2" %>
   <%= f.submit "追加", class: "btn btn-primary" %>
