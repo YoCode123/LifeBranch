@@ -18,13 +18,8 @@ class Decision < ApplicationRecord
   validate :selected_option_must_belong_to_decision
   validate :options_content_uniqueness
 
-  # ⭐ここは既存のままでOK
-
   private
 
-  # =====================================
-  # 🔥 ここに追加（今回の本体）
-  # =====================================
   before_update :protect_selected_option_from_destroy
 
   def protect_selected_option_from_destroy
