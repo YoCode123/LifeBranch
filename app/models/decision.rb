@@ -14,10 +14,35 @@ class Decision < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :category_id, presence: true
 
+  validate :selected_option_presence
   validate :selected_option_must_belong_to_decision
   validate :options_content_uniqueness
 
+  # ⭐ここは既存のままでOK
+
   private
+
+  # =====================================
+  # 🔥 ここに追加（今回の本体）
+  # =====================================
+  before_update :protect_selected_option_from_destroy
+
+  def protect_selected_option_from_destroy
+    return if selected_option_id.blank?
+
+    destroying_ids = options.select(&:marked_for_destruction?).map(&:id)
+
+    if destroying_ids.include?(selected_option_id)
+      errors.add(:base, "最終決断に選ばれている選択肢は削除できません")
+      throw(:abort)
+    end
+  end
+
+  def selected_option_presence
+    return if selected_option_id.present?
+
+    errors.add(:selected_option, "を選択してください")
+  end
 
   def selected_option_must_belong_to_decision
     return if selected_option_id.blank?
