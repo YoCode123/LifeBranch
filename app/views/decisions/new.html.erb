@@ -49,6 +49,13 @@
 <% end %>
   <hr>
 
+  <div>
+  <%= f.label :reason, "決断理由" %>
+  <%= f.text_area :reason, class: "form-control" %>
+ </div>
+
+  <hr>
+
   <h3>感情</h3>
 
   <% EmotionType.all.each do |emotion| %>

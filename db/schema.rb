@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_144207) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_25_104635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_144207) do
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.text "description"
+    t.text "reason"
     t.bigint "selected_option_id"
     t.string "title"
     t.datetime "updated_at", null: false
