@@ -24,13 +24,46 @@
 
 <ul class="list-group mb-3">
   <% @decision.options.each do |option| %>
-    <li class="list-group-item"><%= option.content %></li>
+    <li class="list-group-item d-flex justify-content-between align-items-center <%= 'list-group-item-success' if @decision.selected_option_id == option.id %>">
+
+      <div>
+        <%= option.content %>
+
+        <% if @decision.selected_option_id == option.id %>
+          <span class="ms-2 badge bg-success">選択中</span>
+        <% end %>
+      </div>
+
+      <div>
+        <%= button_to "これに決める",
+          decision_path(@decision, decision: { selected_option_id: option.id }),
+          method: :patch,
+          class: "btn btn-outline-success btn-sm" %>
+      </div>
+
+    </li>
   <% end %>
 </ul>
 
+<hr>
+
+<h3>最終決断</h3>
+
+<% if @decision.selected_option.present? %>
+  <div class="alert alert-success">
+    <strong><%= @decision.selected_option.content %></strong> を選択しています
+  </div>
+<% else %>
+  <div class="alert alert-secondary">
+    まだ決断していません
+  </div>
+<% end %>
+
+<hr>
+
 <%= form_with model: [@decision, Option.new], local: true do |f| %>
   <%= f.text_field :content, class: "form-control mb-2" %>
-  <%= f.submit "追加" %>
+  <%= f.submit "追加", class: "btn btn-primary" %>
 <% end %>
 
 <hr>

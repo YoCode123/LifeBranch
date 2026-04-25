@@ -36,6 +36,17 @@
 
   <hr>
 
+  <% if @decision.persisted? && @decision.options.any? %>
+  <hr>
+
+  <h3>最終決断</h3>
+
+  <div>
+    <%= f.label :selected_option_id, "選択してください" %><br>
+    <%= f.collection_select :selected_option_id, @decision.options, :id, :content, include_blank: true %>
+  </div>
+ <% end %>
+
   <h3>感情</h3>
 
   <% EmotionType.all.each do |emotion| %>
