@@ -16,11 +16,13 @@ class DecisionsController < ApplicationController
   end
 
   def create
-    @decision = current_user.decisions.build(decision_params)
+    @decision = current_user.decisions.new(decision_params)
 
     if @decision.save
-      redirect_to decisions_path, notice: "Decisionを作成しました！"
+      assign_selected_option
+      redirect_to @decision
     else
+      3.times { @decision.options.build } if @decision.options.empty?
       render :new, status: :unprocessable_entity
     end
   end
@@ -34,6 +36,7 @@ class DecisionsController < ApplicationController
     @decision = current_user.decisions.find(params[:id])
 
     if @decision.update(decision_params)
+      assign_selected_option
       redirect_to decision_path(@decision), notice: "更新しました！"
     else
       render :edit, status: :unprocessable_entity
@@ -42,7 +45,11 @@ class DecisionsController < ApplicationController
 
   def destroy
     @decision = current_user.decisions.find(params[:id])
-    @decision.destroy
+
+    Decision.transaction do
+      @decision.update_columns(selected_option_id: nil)
+      @decision.destroy
+    end
 
     redirect_to decisions_path, notice: "削除しました！"
   end
@@ -58,5 +65,14 @@ class DecisionsController < ApplicationController
       options_attributes: [:id, :content, :_destroy],
       emotion_type_ids: []
     )
+  end
+
+  def assign_selected_option
+    return unless params[:decision][:selected_option_index].present?
+
+    index = params[:decision][:selected_option_index].to_i
+    option = @decision.options[index]
+
+    @decision.update_column(:selected_option_id, option&.id)
   end
 end
