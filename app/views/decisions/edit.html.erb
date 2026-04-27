@@ -1,7 +1,7 @@
 <h1 class="mb-4">決断編集</h1>
 
 <% if @decision.errors.any? %>
-  <div>
+  <div class="alert alert-danger">
     <h2><%= @decision.errors.count %>件のエラーがあります</h2>
     <ul>
       <% @decision.errors.full_messages.each do |message| %>
@@ -12,45 +12,70 @@
 <% end %>
 
 <%= form_with model: @decision, local: true do |f| %>
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title, class: "form-control mb-3" %>
+
+  <div class="mb-3">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :category_id, "カテゴリ" %><br>
-    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "選択してください" %>
+  <div class="mb-3">
+    <%= f.label :category_id, "カテゴリ" %>
+    <%= f.collection_select :category_id, Category.all, :id, :name,
+        { prompt: "選択してください" },
+        { class: "form-select" } %>
   </div>
 
   <hr>
 
   <h3>選択肢</h3>
 
-  <%= f.fields_for :options do |option_form| %>
-    <div>
-      <%= option_form.text_field :content %>
-      <%= option_form.check_box :_destroy %>
-      <%= option_form.label :_destroy, "削除" %>
+  <div id="options-container">
+    <%= f.fields_for :options do |option_form| %>
+      <div class="mb-2 option-item">
+        <%= option_form.text_field :content, class: "form-control" %>
+
+        <%= option_form.hidden_field :_destroy, class: "destroy-flag" %>
+
+        <button type="button" class="remove-option-btn btn btn-danger btn-sm mt-1">
+          削除
+        </button>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" id="add-option-btn" class="btn btn-outline-primary mb-3">
+    ＋ 選択肢を追加
+  </button>
+
+  <div id="option-template" style="display: none;">
+    <div class="mb-2 option-item">
+      <input type="text"
+             name="decision[options_attributes][NEW_RECORD][content]"
+             class="form-control" />
+
+      <button type="button" class="remove-option-btn btn btn-danger btn-sm mt-1">
+        削除
+      </button>
     </div>
-  <% end %>
+  </div>
 
   <hr>
 
   <% if @decision.persisted? && @decision.options.any? %>
-  <hr>
+    <h3>最終決断</h3>
 
-  <h3>最終決断</h3>
+    <% @decision.options.reject(&:marked_for_destruction?).each do |option| %>
+      <div class="decision-option mb-1">
+        <%= f.radio_button :selected_option_id, option.id %>
+        <span><%= option.content.presence || "選択肢" %></span>
+      </div>
+    <% end %>
 
-  <div>
-    <%= f.label :selected_option_id, "選択してください" %><br>
-    <%= f.collection_select :selected_option_id, @decision.options, :id, :content, include_blank: true %>
-  </div>
- <% end %>
-
-  <div>
-  <%= f.label :reason, "決断理由" %>
-  <%= f.text_area :reason, class: "form-control" %>
-  </div>
+    <div class="mb-3 mt-3">
+      <%= f.label :reason, "決断理由" %>
+      <%= f.text_area :reason, class: "form-control", rows: 3 %>
+    </div>
+  <% end %>
 
   <hr>
 
@@ -58,14 +83,27 @@
 
   <% EmotionType.all.each do |emotion| %>
     <div>
-      <%= check_box_tag "decision[emotion_type_ids][]", emotion.id, @decision.emotion_type_ids.include?(emotion.id) %>
+      <%= check_box_tag "decision[emotion_type_ids][]",
+          emotion.id,
+          @decision.emotion_type_ids.include?(emotion.id) %>
       <%= emotion.name %>
     </div>
   <% end %>
 
-  <div>
+  <div class="mt-3">
     <%= f.submit "更新する", class: "btn btn-primary w-100" %>
   </div>
+
 <% end %>
 
-<%= link_to "戻る", decision_path(@decision), class: "btn btn-secondary w-100 mt-2" %>
+<div class="mt-3">
+  <%= button_to "この決断を削除する",
+      decision_path(@decision),
+      method: :delete,
+      data: { turbo_confirm: "本当に削除しますか？" },
+      class: "btn btn-danger w-100" %>
+</div>
+
+<%= link_to "戻る",
+    decision_path(@decision),
+    class: "btn btn-secondary w-100 mt-2" %>

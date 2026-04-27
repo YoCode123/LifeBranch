@@ -24,35 +24,37 @@
   </div>
 
   <hr>
-<h3>選択肢</h3>
 
-<% @decision.options.each_with_index do |option, index| %>
-  <div class="mb-2">
-    <%= text_field_tag "decision[options_attributes][#{index}][content]",
-          option.content,
-          class: "form-control option-input",
-          data: { index: index } %>
-  </div>
-<% end %>
+  <h3>選択肢</h3>
 
-<hr>
+  <% @decision.options.each_with_index do |option, index| %>
+    <div class="mb-2">
+      <%= text_field_tag "decision[options_attributes][#{index}][content]",
+            option.content,
+            class: "form-control option-input",
+            data: { index: index } %>
+    </div>
+  <% end %>
 
-<h3>最終決断</h3>
-
-<% @decision.options.each_with_index do |option, index| %>
-  <div class="decision-option">
-    <%= radio_button_tag "decision[selected_option_index]", index %>
-    <span id="option-label-<%= index %>">
-      <%= option.content.presence || "選択肢#{index + 1}" %>
-    </span>
-  </div>
-<% end %>
   <hr>
 
-  <div>
-  <%= f.label :reason, "決断理由" %>
-  <%= f.text_area :reason, class: "form-control" %>
- </div>
+  <h3>最終決断</h3>
+
+  <% @decision.options.each_with_index do |option, index| %>
+    <div class="decision-option">
+      <%= radio_button_tag "decision[selected_option_index]", index, false, class: "decision-radio" %>
+      <span class="decision-label" id="option-label-<%= index %>">
+        <%= option.content.presence || "選択肢#{index + 1}" %>
+      </span>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <div class="mb-3">
+    <%= f.label :reason, "決断理由" %>
+    <%= f.text_area :reason, class: "form-control", rows: 3 %>
+  </div>
 
   <hr>
 
