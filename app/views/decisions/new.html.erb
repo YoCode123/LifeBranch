@@ -1,9 +1,9 @@
 <h1 class="mb-4">決断作成</h1>
 
 <% if @decision.errors.any? %>
-  <div>
-    <h2><%= @decision.errors.count %>件のエラーがあります</h2>
-    <ul>
+  <div class="alert alert-danger">
+    <h5><%= @decision.errors.count %>件のエラーがあります</h5>
+    <ul class="mb-0">
       <% @decision.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
@@ -13,19 +13,28 @@
 
 <%= form_with model: @decision, local: true do |f| %>
 
-  <div>
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title, class: "form-control mb-3" %>
+  <div class="mb-3">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :category_id, "カテゴリ" %><br>
-    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: "選択してください" %>
+    <div class="mb-3">
+    <%= label_tag nil, "日付" %>
+    <%= date_field_tag "decision[recorded_on]",
+          Date.today,
+          class: "form-control",
+          required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :category_id, "カテゴリ" %>
+    <%= f.collection_select :category_id, Category.all, :id, :name,
+          { prompt: "選択してください" }, class: "form-select" %>
   </div>
 
   <hr>
 
-  <h3>選択肢</h3>
+  <h5>選択肢</h5>
 
   <% @decision.options.each_with_index do |option, index| %>
     <div class="mb-2">
@@ -38,16 +47,27 @@
 
   <hr>
 
-  <h3>最終決断</h3>
+<h5>最終決断</h5>
 
-  <% @decision.options.each_with_index do |option, index| %>
-    <div class="decision-option">
-      <%= radio_button_tag "decision[selected_option_index]", index, false, class: "decision-radio" %>
-      <span class="decision-label" id="option-label-<%= index %>">
-        <%= option.content.presence || "選択肢#{index + 1}" %>
-      </span>
-    </div>
-  <% end %>
+<% @decision.options.each_with_index do |option, index| %>
+  <div class="decision-option form-check">
+    <%= radio_button_tag "decision[selected_option_index]",
+          index,
+          false,
+          id: "option_#{index}",
+          class: "form-check-input decision-radio" %>
+
+    <%= label_tag "option_#{index}",
+          (option.content.presence || "選択肢#{index + 1}"),
+          class: "form-check-label decision-label",
+          id: "option-label-#{index}" %>
+  </div>
+<% end %>
+
+<div class="mt-3">
+  <strong>選択中：</strong>
+  <span id="selected-option-preview" class="text-success">未選択</span>
+</div>
 
   <hr>
 
@@ -58,18 +78,23 @@
 
   <hr>
 
-  <h3>感情</h3>
+  <h5>感情</h5>
 
-  <% EmotionType.all.each do |emotion| %>
-    <div>
+  <% @emotion_types.each do |emotion| %>
+    <div class="form-check">
       <%= check_box_tag "decision[emotion_type_ids][]",
             emotion.id,
-            @decision.emotion_type_ids.include?(emotion.id) %>
-      <%= emotion.name %>
+            false,
+            id: "emotion_#{emotion.id}",
+            class: "form-check-input" %>
+
+      <%= label_tag "emotion_#{emotion.id}",
+            emotion.name,
+            class: "form-check-label" %>
     </div>
   <% end %>
 
-  <div>
+  <div class="mt-4">
     <%= f.submit "作成する", class: "btn btn-primary w-100" %>
   </div>
 

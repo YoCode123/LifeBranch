@@ -3,20 +3,34 @@
 <div class="card mb-4">
   <div class="card-body">
     <h2 class="card-title"><%= @decision.title %></h2>
-    <p class="card-text">カテゴリ: <%= @decision.category&.name || "未設定" %></p>
-    <p class="card-text">作成日: <%= @decision.created_at.strftime("%Y/%m/%d") %></p>
+     <% date = @decision.decision_emotions.first.recorded_on %>
+
+  <p class="card-text" mb-2">
+    日付：
+    <%= date == Date.today ? "今日" : date.strftime("%Y年%m月%d日") %>
+  </p>
+    <p class="card-text">
+      カテゴリ: <%= @decision.category&.name || "未設定" %>
+    </p>
   </div>
 </div>
 
 <hr>
 
-<h3>感情</h3>
+<h3 class="mb-3">感情</h3>
 
-<div class="mb-3">
-  <% @decision.emotion_types.each do |emotion| %>
-    <span class="badge bg-primary me-1"><%= emotion.name %></span>
-  <% end %>
-</div>
+<% if @decision.decision_emotions.present? %>
+
+  <div class="mb-3">
+    <% @decision.decision_emotions.each do |de| %>
+      <span class="badge bg-primary me-1 mb-1">
+        <%= de.emotion_type.name %>
+      </span>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-muted">感情はまだ記録されていません</p>
+<% end %>
 
 <hr>
 
@@ -34,12 +48,10 @@
         <% end %>
       </div>
 
-      <div>
-        <%= button_to "これに決める",
-          decision_path(@decision, decision: { selected_option_id: option.id }),
-          method: :patch,
-          class: "btn btn-outline-success btn-sm" %>
-      </div>
+      <%= button_to "これに決める",
+        decision_path(@decision, decision: { selected_option_id: option.id }),
+        method: :patch,
+        class: "btn btn-outline-success btn-sm" %>
 
     </li>
   <% end %>
@@ -68,9 +80,9 @@
     <%= @decision.reason %>
   </div>
 <% else %>
-  <div class="text-muted">
+  <p class="text-muted">
     理由はまだ記録されていません
-  </div>
+  </p>
 <% end %>
 
 <hr>
