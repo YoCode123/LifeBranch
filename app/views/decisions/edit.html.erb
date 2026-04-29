@@ -18,6 +18,10 @@
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
+  <h3>日付</h3>
+
+  <%= date_field_tag "decision[recorded_on]", nil, class: "form-control" %>
+
   <div class="mb-3">
     <%= f.label :category_id, "カテゴリ" %>
     <%= f.collection_select :category_id, Category.all, :id, :name,
