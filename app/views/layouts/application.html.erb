@@ -28,6 +28,10 @@
       <div class="container">
         <%= link_to "LifeBranch", decisions_path, class: "navbar-brand" %>
 
+        <% if user_signed_in? %>
+           <span><%= current_user.name %>さん</span>
+        <% end %>
+
         <div>
           <% if user_signed_in? %>
             <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-danger btn-sm", data: { turbo_method: :delete } %>
