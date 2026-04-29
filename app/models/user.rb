@@ -9,5 +9,6 @@ class User < ApplicationRecord
     sign_in_count <= 1
   end
 
+  validates :name, presence: true, length: { maximum: 50 }
   has_many :decisions, dependent: :destroy
 end
