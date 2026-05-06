@@ -12,8 +12,9 @@ class DecisionsController < ApplicationController
   end
 
   def new
-    @decision = Decision.new
-    3.times { @decision.options.build }
+   @decision = Decision.new
+   @emotion_types = EmotionType.all
+   3.times { @decision.options.build }
   end
 
   def create

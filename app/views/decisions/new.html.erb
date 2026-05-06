@@ -1,4 +1,25 @@
+<%= render "shared/guide_modal" %>
+<% if current_user && !current_user.first_login_done? %>
+  <script>
+    document.addEventListener("turbo:load", function () {
+      const el = document.getElementById("guideModal");
+      if (!el) return;
+
+      const modal = new bootstrap.Modal(el);
+      modal.show();
+    });
+  </script>
+<% end %>
+
 <h1 class="mb-4">決断作成</h1>
+
+<% if controller_name == "decisions" && action_name == "new" %>
+  <button class="btn btn-outline-info btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#guideModal">
+    ガイド
+  </button>
+<% end %>
 
 <% if @decision.errors.any? %>
   <div class="alert alert-danger">

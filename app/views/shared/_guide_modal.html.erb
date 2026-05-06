@@ -1,0 +1,21 @@
+<div class="modal fade" id="guideModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+
+      <h4>入力ガイド</h4>
+
+      <p>
+        ・タイトルを書く<br>
+        ・選択肢を複数追加<br>
+        ・1つ選んで決断
+      </p>
+
+      <%= button_to "理解した",
+      complete_guide_path,
+      method: :post,
+      form: { data: { turbo: false } },
+      class: "btn btn-primary w-100" %>
+
+    </div>
+  </div>
+</div>
