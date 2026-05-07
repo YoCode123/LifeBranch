@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root "home#index"
+  root "guides#show"
 
-   get "guide", to: "guides#show"
+   get "dashboard", to: "home#index"
    post "complete_guide", to: "guides#complete"
 
    resources :decisions, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
