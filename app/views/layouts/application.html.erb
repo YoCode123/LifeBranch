@@ -9,8 +9,6 @@
     <meta name="application-name" content="Life Branch">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -20,20 +18,39 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer>
+    </script>
+
+    <%= stylesheet_link_tag :app,
+          "data-turbo-track": "reload" %>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
 
+    <!-- ナビ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
       <div class="container-fluid">
 
-        <%= link_to "LifeBranch", root_path, class: "navbar-brand", data: { turbo: false } %>
+        <%= link_to "LifeBranch",
+              root_path,
+              class: "navbar-brand",
+              data: { turbo: false } %>
 
         <% if user_signed_in? %>
 
-         <div id="user-menu" class="dropdown" data-turbo-permanent>
+          <div class="dropdown">
+
             <button
               class="btn border-0 dropdown-toggle d-flex align-items-center gap-2"
               type="button"
@@ -43,15 +60,17 @@
               <% if current_user.avatar.attached? %>
 
                 <%= image_tag current_user.avatar,
-                      width: 40,
-                      height: 40,
-                      class: "rounded-circle object-fit-cover" %>
+                      class: "rounded-circle object-fit-cover",
+                      style: "width:40px;height:40px;" %>
 
               <% else %>
 
                 <div
                   class="rounded-circle bg-secondary text-white d-flex justify-content-center align-items-center"
-                  style="width: 40px; height: 40px;">
+                  style="width:40px;height:40px;">
+
+                  <small>👤</small>
+
                 </div>
 
               <% end %>
@@ -71,14 +90,18 @@
               <li>
                 <%= link_to "プロフィール編集",
                       edit_user_registration_path,
-                      class: "dropdown-item" %>
+                      class: "dropdown-item",
+                      data: { turbo: false } %>
               </li>
 
               <li>
                 <%= link_to "ログアウト",
                       destroy_user_session_path,
                       class: "dropdown-item text-danger",
-                      data: { turbo_method: :delete } %>
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "ログアウトしますか？"
+                      } %>
               </li>
 
             </ul>
@@ -102,30 +125,39 @@
         <% end %>
 
       </div>
+
     </nav>
 
+    <!-- レイアウト -->
     <div class="container-fluid">
+
       <div class="row">
 
         <% if user_signed_in? %>
 
+          <!-- サイドバー -->
           <aside class="col-md-3 col-lg-2 bg-light min-vh-100 border-end p-3">
 
             <ul class="nav flex-column">
 
               <li class="nav-item mb-2">
+
                 <%= link_to "ダッシュボード",
                       dashboard_path,
                       class: "nav-link",
                       data: { turbo: false } %>
+
               </li>
 
               <li class="nav-item mb-2">
+
                 <%= link_to "意思決定一覧",
                       decisions_path,
                       class: "nav-link",
                       data: { turbo: false } %>
+
               </li>
+
             </ul>
 
           </aside>
@@ -138,22 +170,25 @@
 
         <% end %>
 
+            <!-- フラッシュ -->
             <% flash.each do |type, message| %>
 
               <div class="alert alert-<%= type == "notice" ? "success" : "danger" %>">
+
                 <%= message %>
+
               </div>
 
             <% end %>
 
+            <!-- 各ページ -->
             <%= yield %>
 
           </main>
 
       </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 
   </body>
 </html>
