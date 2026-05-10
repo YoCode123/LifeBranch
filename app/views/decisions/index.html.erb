@@ -3,12 +3,25 @@
 <%= link_to "新しい決断を作成", new_decision_path %>
 
 <% @decisions.each do |decision| %>
-  <div>
+  <div class="mb-3">
+
     <h2>
       <%= link_to decision.title, decision_path(decision) %>
     </h2>
-    <p>カテゴリ: <%= decision.category&.name || "未設定"  %></p>
-    <p><%= decision.created_at.strftime("%Y/%m/%d") %></p>
+
+    <p>
+      カテゴリ: <%= decision.category&.name || "未設定" %>
+    </p>
+
+    <p>
+      日付:
+      <% if decision.recorded_on.present? %>
+        <%= decision.recorded_on.strftime("%Y/%m/%d") %>
+      <% else %>
+        <%= decision.created_at.strftime("%Y/%m/%d") %>
+      <% end %>
+    </p>
+
   </div>
 <% end %>
 
