@@ -49,7 +49,6 @@
       local: true,
       data: { controller: "decision-form" } do |f| %>
 
-  <!-- タイトル -->
   <div class="mb-3">
 
     <%= f.label :title,
@@ -62,7 +61,6 @@
 
   </div>
 
-  <!-- 日付 -->
   <div class="mb-3">
 
     <%= f.label :recorded_on,
@@ -74,7 +72,6 @@
 
   </div>
 
-  <!-- カテゴリ -->
   <div class="mb-4">
 
     <%= f.label :category_id,
@@ -92,7 +89,6 @@
 
   <hr>
 
-  <!-- 選択肢 -->
   <h5 class="mb-3">選択肢</h5>
 
   <div
@@ -119,7 +115,6 @@
 
   <hr>
 
-  <!-- 最終決断 -->
   <h5 class="mb-3">最終決断</h5>
 
   <div
@@ -152,7 +147,6 @@
 
   </div>
 
-  <!-- 選択中 -->
   <div class="mt-3">
 
     <strong>選択中：</strong>
@@ -180,7 +174,6 @@
 
   <hr>
 
-  <!-- 理由 -->
   <div class="mb-4">
 
     <%= f.label :reason,
@@ -196,7 +189,6 @@
 
   <hr>
 
-  <!-- 感情 -->
   <h5 class="mb-3">感情</h5>
 
   <% selected_emotions =
@@ -220,7 +212,6 @@
 
   <% end %>
 
-  <!-- 作成 -->
   <div class="mt-4">
 
     <%= f.submit "作成する",
@@ -230,7 +221,6 @@
 
 <% end %>
 
-<!-- 戻る -->
 <%= link_to "戻る",
       decisions_path,
       class: "btn btn-secondary w-100 mt-2" %>

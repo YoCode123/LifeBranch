@@ -40,7 +40,6 @@ export default class extends Controller {
 
     const targetRadio = radios[index]
 
-    // 選択中なら解除
     if (targetRadio?.checked) {
       targetRadio.checked = false
     }
@@ -70,7 +69,6 @@ export default class extends Controller {
       )
     })
 
-    // 現在選択中保持
     const currentChecked =
       this.finalTarget.querySelector(
         ".decision-radio:checked"
@@ -79,10 +77,8 @@ export default class extends Controller {
     const checkedValue =
       currentChecked?.value
 
-    // ラジオ初期化
     this.finalTarget.innerHTML = ""
 
-    // ラジオ再生成
     inputs.forEach((input, index) => {
       const value =
         input.value || `選択肢${index + 1}`
@@ -117,7 +113,6 @@ export default class extends Controller {
       )
     })
 
-    // 選択中表示
     const checked =
       this.finalTarget.querySelector(
         ".decision-radio:checked"
