@@ -1,11 +1,21 @@
-<h1>ようこそ LifeBranch へ！</h1>
+<div class="d-flex flex-column justify-content-center align-items-center min-vh-100">
 
-<p>
-  このアプリでは、あなたの意思決定と感情を記録できます。
-</p>
+  <h1 class="mb-3">LifeBranch</h1>
 
-<p>
-  まずは一つ、選択を記録してみましょう！
-</p>
+  <p class="text-muted mb-4">
+    あなたの決断を記録するアプリ
+  </p>
 
-<%= link_to "始める", root_path %>
+  <div class="d-flex gap-3">
+
+    <%= link_to "ログイン",
+          new_user_session_path,
+          class: "btn btn-outline-primary px-4" %>
+
+    <%= link_to "新規登録",
+          new_user_registration_path,
+          class: "btn btn-primary px-4" %>
+
+  </div>
+
+</div>

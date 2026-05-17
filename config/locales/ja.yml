@@ -1,0 +1,82 @@
+ja:
+  devise:
+    registrations:
+      signed_up: "アカウント登録が完了しました"
+      updated: "アカウント情報を更新しました"
+      destroyed: "アカウントを削除しました"
+
+      user:
+        updated: "アカウント情報を更新しました"
+        destroyed: "アカウントを削除しました"
+
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+
+      user:
+        signed_in: "ログインしました"
+        signed_out: "ログアウトしました"
+
+    passwords:
+      send_instructions: "パスワード再設定メールを送信しました"
+
+      user:
+        send_instructions: "パスワード再設定メールを送信しました"
+
+    failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+      unauthenticated: "ログインしてください"
+
+  activerecord:
+    models:
+      user: "ユーザー"
+      decision: "意思決定"
+
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        current_password: "現在のパスワード"
+        name: "ニックネーム"
+
+      decision:
+        title: "タイトル"
+        category_id: "カテゴリ"
+        selected_option_id: "選択した項目"
+        reason: "決断理由"
+        recorded_on: "日付"
+
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              not_found: "が見つかりません"
+
+            password:
+              blank: "を入力してください"
+              too_short: "は%{count}文字以上で入力してください"
+
+            password_confirmation:
+              confirmation: "と一致しません"
+
+            current_password:
+              blank: "を入力してください"
+              invalid: "が正しくありません"
+
+  errors:
+    format: "%{attribute}%{message}"
+
+    messages:
+      blank: "を入力または選択してください"
+      invalid: "が正しくありません"
+      confirmation: "と一致しません"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      taken: "はすでに存在します"
+
+      not_saved:
+        one: "1件のエラーがあるため保存できませんでした"
+        other: "%{count}件のエラーがあるため保存できませんでした"

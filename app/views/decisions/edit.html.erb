@@ -1,89 +1,137 @@
 <h1 class="mb-4">決断編集</h1>
 
 <% if @decision.errors.any? %>
+
   <div class="alert alert-danger">
-    <h2 class="mb-2"><%= @decision.errors.count %>件のエラーがあります</h2>
+
+    <h2 class="mb-2">
+      <%= @decision.errors.count %>件のエラーがあります
+    </h2>
+
     <ul class="mb-0">
       <% @decision.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
+
   </div>
+
 <% end %>
 
 <%= form_with model: @decision,
       local: true,
-      data: { controller: "decision-form" } do |f| %>
+      data: {
+        controller: "decision-form decision-preview"
+      } do |f| %>
 
   <div class="mb-3">
-    <%= f.label :title, "タイトル", class: "form-label" %>
-    <%= f.text_field :title, class: "form-control" %>
+
+    <%= f.label :title,
+          "タイトル",
+          class: "form-label" %>
+
+    <%= f.text_field :title,
+          class: "form-control" %>
+
   </div>
 
   <div class="mb-3">
-    <%= f.label :recorded_on, "日付", class: "form-label" %>
-    <%= f.date_field :recorded_on, class: "form-control" %>
+
+    <%= f.label :recorded_on,
+          "日付",
+          class: "form-label" %>
+
+    <%= f.date_field :recorded_on,
+          class: "form-control" %>
+
   </div>
 
   <div class="mb-4">
-    <%= f.label :category_id, "カテゴリ", class: "form-label" %>
+
+    <%= f.label :category_id,
+          "カテゴリ",
+          class: "form-label" %>
+
     <%= f.collection_select :category_id,
           Category.all,
           :id,
           :name,
           { prompt: "選択してください" },
           class: "form-select" %>
+
   </div>
 
   <hr>
 
   <h5 class="mb-3">選択肢</h5>
 
-  <div id="options-container"
-       data-decision-form-target="container">
+  <div
+    id="options-container"
+    data-decision-form-target="container">
 
     <%= f.fields_for :options do |option_form| %>
+
       <div class="mb-2 option-item">
+
+        <%= option_form.hidden_field :id %>
 
         <%= option_form.text_field :content,
               class: "form-control option-input",
-              data: { action: "input->decision-form#refresh" } %>
+              data: {
+                decision_preview_target: "input",
+                action: "input->decision-preview#refresh"
+              } %>
 
         <%= option_form.hidden_field :_destroy,
               class: "destroy-flag" %>
 
-        <button type="button"
-                class="btn btn-danger btn-sm mt-1"
-                data-action="click->decision-form#removeOption">
+        <button
+          type="button"
+          class="btn btn-danger btn-sm mt-1"
+          data-action="click->decision-form#removeOption">
+
           削除
+
         </button>
 
       </div>
+
     <% end %>
 
   </div>
 
-  <button type="button"
-          class="btn btn-outline-primary mb-3"
-          data-action="click->decision-form#addOption">
+  <button
+    type="button"
+    class="btn btn-outline-primary mb-3"
+    data-action="click->decision-form#addOption">
+
     ＋ 選択肢を追加
+
   </button>
 
-  <div id="option-template"
-       style="display:none"
-       data-decision-form-target="template">
+  <!-- template -->
+
+  <div
+    id="option-template"
+    style="display:none"
+    data-decision-form-target="template">
 
     <div class="mb-2 option-item">
 
-      <input type="text"
-             name="decision[options_attributes][NEW_RECORD][content]"
-             class="form-control option-input"
-             data-action="input->decision-form#refresh">
+      <input
+        type="text"
+        name="decision[options_attributes][NEW_RECORD][content]"
+        class="form-control option-input"
+        data-decision-preview-target="input"
+        data-action="input->decision-preview#refresh">
 
-      <button type="button"
-              class="btn btn-danger btn-sm mt-1"
-              data-action="click->decision-form#removeOption">
+      <button
+        type="button"
+        class="btn btn-danger btn-sm mt-1"
+        data-action="click->decision-form#removeOption">
+
         削除
+
       </button>
 
     </div>
@@ -94,24 +142,40 @@
 
   <h5 class="mb-3">最終決断</h5>
 
-  <div data-decision-form-target="final"
-       data-action="change->decision-form#refresh">
-  </div>
+  <div
+  data-decision-preview-target="final"
+  data-selected-option-id="<%= @decision.selected_option_id %>">
+</div>
 
-  <div class="mb-3 mt-3">
-    <strong>選択中：</strong>
-    <span id="selected-option-preview" class="text-success">
-      未選択
-    </span>
-  </div>
+<div class="mb-3 mt-3">
+
+  <strong>選択中：</strong>
+
+  <span
+    class="text-success"
+    data-decision-preview-target="preview">
+
+    <%= @decision
+          .options
+          .find_by(id: @decision.selected_option_id)
+          &.content || "未選択" %>
+
+  </span>
+
+</div>
 
   <hr>
 
   <div class="mb-3">
-    <%= f.label :reason, "決断理由", class: "form-label" %>
+
+    <%= f.label :reason,
+          "決断理由",
+          class: "form-label" %>
+
     <%= f.text_area :reason,
           class: "form-control",
           rows: 3 %>
+
   </div>
 
   <hr>
@@ -119,6 +183,7 @@
   <h5 class="mb-3">感情</h5>
 
   <% EmotionType.all.each do |emotion| %>
+
     <div class="form-check mb-1">
 
       <%= check_box_tag "decision[emotion_type_ids][]",
@@ -126,23 +191,33 @@
             @decision.emotion_type_ids.include?(emotion.id),
             class: "form-check-input" %>
 
-      <%= label_tag nil, emotion.name, class: "form-check-label" %>
+      <%= label_tag nil,
+            emotion.name,
+            class: "form-check-label" %>
 
     </div>
+
   <% end %>
 
   <div class="mt-4">
-    <%= f.submit "更新する", class: "btn btn-primary w-100" %>
+
+    <%= f.submit "更新する",
+          class: "btn btn-primary w-100" %>
+
   </div>
 
 <% end %>
 
 <div class="mt-3">
+
   <%= button_to "この決断を削除する",
         decision_path(@decision),
         method: :delete,
-        data: { turbo_confirm: "本当に削除しますか？" },
+        data: {
+          turbo_confirm: "本当に削除しますか？"
+        },
         class: "btn btn-danger w-100" %>
+
 </div>
 
 <%= link_to "戻る",
