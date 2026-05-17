@@ -1,47 +1,115 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [
-    "input",
-    "radio",
-    "label",
-    "preview"
-  ]
+  static targets = ["input", "final", "preview"]
 
   connect() {
-    this.updateLabels()
+    this.selectedOptionId =
+      this.finalTarget.dataset.selectedOptionId || ""
+
+    this.refresh()
+  }
+
+  refresh() {
+    this.renderFinal()
     this.updatePreview()
   }
 
-  updateLabels() {
-    this.inputTargets.forEach((input, index) => {
-      const label = this.labelTargets[index]
+  renderFinal() {
+    const currentChecked =
+      this.finalTarget.querySelector(
+        "input[type='radio']:checked"
+      )?.dataset.optionId || this.selectedOptionId
 
-      if (!label) return
+    this.finalTarget.innerHTML = ""
 
-      label.textContent =
-        input.value.trim() || `選択肢${index + 1}`
-    })
+    this.inputTargets
+      .filter(input => !input.closest("#option-template"))
+      .forEach((input, index) => {
+
+        const optionItem =
+          input.closest(".option-item")
+
+        if (
+          !optionItem ||
+          optionItem.style.display === "none"
+        ) {
+          return
+        }
+
+        const optionIdInput =
+          optionItem.querySelector(
+            "input[name*='[id]']"
+          )
+
+        const savedOptionId =
+          optionIdInput?.value
+
+        const optionId =
+          savedOptionId || `new_${index}`
+
+
+
+        const value =
+          input.value.trim() || `選択肢${index + 1}`
+
+        const checked =
+          String(currentChecked) === String(optionId)
+
+        const wrapper =
+          document.createElement("div")
+
+        wrapper.className = "form-check mb-2"
+
+        wrapper.innerHTML = `
+          <input
+            type="radio"
+            name="decision[selected_option_temp]"
+            value="${optionId}"
+            data-option-id="${optionId}"
+            class="form-check-input"
+            id="option_${index}"
+            ${checked ? "checked" : ""}
+          >
+
+          <label
+            class="form-check-label"
+            for="option_${index}">
+            ${value}
+          </label>
+        `
+
+        this.finalTarget.appendChild(wrapper)
+      })
+
+    this.finalTarget
+      .querySelectorAll("input[type='radio']")
+      .forEach(radio => {
+        radio.addEventListener("change", () => {
+          this.updatePreview()
+        })
+      })
   }
 
   updatePreview() {
-    const checkedRadio =
-      this.radioTargets.find(radio => radio.checked)
+    const checked =
+      this.finalTarget.querySelector(
+        "input[type='radio']:checked"
+      )
 
-    if (!checkedRadio) {
+    if (!checked) {
       this.previewTarget.textContent = "未選択"
       return
     }
 
-    const index = checkedRadio.value
-    const input = this.inputTargets[index]
+    this.selectedOptionId =
+      checked.dataset.optionId
+
+    const label =
+      checked.closest(".form-check")
+        ?.querySelector("label")
 
     this.previewTarget.textContent =
-      input.value.trim() || `選択肢${Number(index) + 1}`
-  }
-
-  refresh() {
-    this.updateLabels()
-    this.updatePreview()
+      label?.textContent || "未選択"
   }
 }

@@ -5,47 +5,105 @@ class DecisionsController < ApplicationController
 
   def index
     @decisions = current_user.decisions.order(created_at: :desc)
+
+    if params[:q].present?
+      @decisions = @decisions.where("title LIKE ?", "%#{params[:q]}%")
+    end
   end
 
   def show
-    @options = @decision.options
+    @decision = current_user.decisions.find(params[:id]).reload
   end
+
 
   def new
     @decision = Decision.new
     3.times { @decision.options.build }
   end
 
-  def create
-    @decision = current_user.decisions.new(decision_params)
+def create
+  @decision = current_user.decisions.new(decision_params)
 
-    if @decision.save
-      assign_selected_option
-      save_emotions
-      redirect_to @decision, notice: "作成しました！"
-    else
-      build_options_if_empty
-      render :new, status: :unprocessable_entity
+  selected_temp =
+    params[:decision][:selected_option_temp]
+
+  if @decision.save
+    if selected_temp.present?
+      index =
+        selected_temp.to_s.gsub("new_", "").to_i
+
+      selected_option =
+        @decision.options[index]
+
+      if selected_option.present?
+        @decision.update(
+          selected_option_id: selected_option.id
+        )
+      end
     end
+
+    save_emotions
+
+    redirect_to @decision,
+      notice: "作成しました！"
+  else
+    build_options_if_empty
+
+    render :new,
+      status: :unprocessable_entity
   end
+end
 
   def edit
     build_options_if_empty
   end
 
-  def update
-    if @decision.update(decision_params)
-      assign_selected_option
-      save_emotions
-      redirect_to @decision, notice: "更新しました！"
-    else
-      render :edit, status: :unprocessable_entity
+def update
+  selected_temp =
+    params[:decision][:selected_option_temp]
+
+  if @decision.update(decision_params)
+
+    save_emotions
+
+    if selected_temp.present?
+
+      if selected_temp.start_with?("new_")
+
+        index =
+          selected_temp.split("_").last.to_i
+
+        new_option =
+          @decision.options.order(:created_at)[index]
+
+        @decision.update_column(
+          :selected_option_id,
+          new_option.id
+        ) if new_option.present?
+
+      else
+
+        @decision.update_column(
+          :selected_option_id,
+          selected_temp
+        )
+
+      end
     end
+
+    redirect_to @decision,
+      notice: "更新しました！"
+
+  else
+    render :edit,
+      status: :unprocessable_entity
   end
+end
+
 
   def destroy
     Decision.transaction do
-      @decision.update_columns(selected_option_id: nil)
+      @decision.update_column(:selected_option_id, nil)
       @decision.destroy
     end
 
@@ -64,7 +122,6 @@ class DecisionsController < ApplicationController
 
   def build_options_if_empty
     return if @decision.options.any?
-
     3.times { @decision.options.build }
   end
 
@@ -72,7 +129,6 @@ class DecisionsController < ApplicationController
     params.require(:decision).permit(
       :title,
       :category_id,
-      :selected_option_id,
       :reason,
       :recorded_on,
       emotion_type_ids: [],
@@ -80,26 +136,14 @@ class DecisionsController < ApplicationController
     )
   end
 
-  def assign_selected_option
-    index = params.dig(:decision, :selected_option_index)
-    return if index.blank?
+  def save_emotions
+    emotion_ids = params.dig(:decision, :emotion_type_ids)&.reject(&:blank?)
+    return if emotion_ids.blank?
 
-    option = @decision.options[index.to_i]
-    return if option.nil?
+    @decision.decision_emotions.destroy_all
 
-    @decision.update_column(:selected_option_id, option.id)
+    emotion_ids.each do |emotion_id|
+      @decision.decision_emotions.create(emotion_type_id: emotion_id)
+    end
   end
-
-def save_emotions
-  emotion_ids = params.dig(:decision, :emotion_type_ids)&.reject(&:blank?)
-  return if emotion_ids.blank?
-
-  @decision.decision_emotions.destroy_all
-
-  emotion_ids.each do |emotion_id|
-    @decision.decision_emotions.create(
-      emotion_type_id: emotion_id
-    )
-  end
-end
 end

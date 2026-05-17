@@ -1,30 +1,65 @@
-<h1 class="mb-4">決断一覧</h1>
+<h1 class="mb-4">意思決定一覧</h1>
 
-<%= link_to "新しい決断を作成", new_decision_path %>
+<div class="d-flex gap-2 mb-4 align-items-center">
 
-<% @decisions.each do |decision| %>
-  <div class="mb-3">
+  <%= link_to "＋ 新規作成",
+        new_decision_path,
+        class: "btn btn-primary" %>
 
-    <h2>
-      <%= link_to decision.title, decision_path(decision) %>
-    </h2>
+  <%= form_with url: decisions_path,
+        method: :get,
+        local: true,
+        class: "d-flex gap-2 flex-grow-1" do %>
 
-    <p>
-      カテゴリ: <%= decision.category&.name || "未設定" %>
-    </p>
+    <%= text_field_tag :q,
+          params[:q],
+          class: "form-control",
+          placeholder: "タイトルで検索" %>
 
-    <p>
-      日付:
-      <% if decision.recorded_on.present? %>
-        <%= decision.recorded_on.strftime("%Y/%m/%d") %>
-      <% else %>
-        <%= decision.created_at.strftime("%Y/%m/%d") %>
-      <% end %>
-    </p>
+    <%= submit_tag "検索",
+          class: "btn btn-outline-secondary" %>
 
-  </div>
-<% end %>
+  <% end %>
 
-<% if @decisions.empty? %>
-  <p>まだ決断がありません</p>
+</div>
+
+<% if @decisions.any? %>
+
+  <% @decisions.each do |decision| %>
+
+    <div class="border rounded p-3 mb-3">
+
+      <div class="d-flex justify-content-between align-items-center mb-2">
+
+        <h5 class="mb-0">
+          <%= link_to decision.title,
+                decision_path(decision),
+                class: "text-decoration-none" %>
+        </h5>
+
+        <small class="text-muted">
+          <% if decision.recorded_on.present? %>
+            <%= decision.recorded_on.strftime("%Y/%m/%d") %>
+          <% else %>
+            <%= decision.created_at.strftime("%Y/%m/%d") %>
+          <% end %>
+        </small>
+
+      </div>
+
+      <!-- カテゴリ -->
+      <div>
+        <span class="badge bg-secondary">
+          <%= decision.category&.name || "未設定" %>
+        </span>
+      </div>
+
+    </div>
+
+  <% end %>
+
+<% else %>
+
+  <p class="text-muted">まだ意思決定がありません</p>
+
 <% end %>
