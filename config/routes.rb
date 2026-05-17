@@ -12,8 +12,6 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
-  devise_for :users
-
   resources :decisions do
     resources :options, only: [:create]
   end
