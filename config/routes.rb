@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: {
+  registrations: "users/registrations",
   passwords: "users/passwords"
 }
 
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
   post "complete_guide", to: "guides#complete"
 
   get "dashboard", to: "home#index"
+
+  get "password_sent", to: "users/passwords#sent"
+  get "password_changed", to: "users/passwords#changed"
 
   resources :decisions do
     resources :options, only: [:create]
