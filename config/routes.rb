@@ -12,9 +12,8 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
-  get "password_sent", to: "passwords#sent"
-
-  get "password_changed", to: "passwords#changed"
+  get "password_sent", to: "users/passwords#sent"
+  get "password_changed", to: "users/passwords#changed"
 
   resources :decisions do
     resources :options, only: [:create]
