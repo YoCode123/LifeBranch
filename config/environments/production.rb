@@ -77,7 +77,7 @@ config.public_file_server.headers = {
 
   config.action_mailer.default_url_options = {
   host: "lifebranch.onrender.com",
-  from: "y.shimi0001@gmail.com"
+  from: "hyousatu@gmail.com"
 }
 
 config.action_mailer.perform_deliveries = true
@@ -87,12 +87,13 @@ config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
   address: "smtp.gmail.com",
   port: 587,
+  domain: "gmail.com",
   user_name: ENV["SMTP_USER_NAME"],
   password: ENV["SMTP_PASSWORD"],
   authentication: :plain,
   enable_starttls_auto: true,
-  open_timeout: 10,
-  read_timeout: 10
+  open_timeout: 15,
+  read_timeout: 15
 }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
