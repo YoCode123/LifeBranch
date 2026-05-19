@@ -83,17 +83,18 @@ config.public_file_server.headers = {
 config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = true
 
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  address: "smtp.gmail.com",
-  port: 587,
-  domain: "gmail.com",
-  user_name: ENV["SMTP_USER_NAME"],
-  password: ENV["SMTP_PASSWORD"],
-  authentication: :plain,
-  enable_starttls_auto: true,
-  open_timeout: 15,
-  read_timeout: 15
+config.action_mailer.delivery_method = :resend
+
+config.action_mailer.resend_settings = {
+  api_key: ENV["RESEND_API_KEY"]
+}
+
+config.action_mailer.default_options = {
+  from: "onboarding@resend.dev"
+}
+
+config.action_mailer.default_url_options = {
+  host: "lifebranch.onrender.com"
 }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
