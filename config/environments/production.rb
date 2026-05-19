@@ -94,7 +94,8 @@ config.action_mailer.default_options = {
 }
 
 config.action_mailer.default_url_options = {
-  host: "lifebranch.onrender.com"
+  host: "lifebranch.onrender.com",
+  protocol: "https"
 }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
