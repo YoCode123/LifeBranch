@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
   registrations: "users/registrations",
-  passwords: "users/passwords"
+  passwords: "users/passwords",
+  sessions: "users/sessions",
 }
 
   get "welcome", to: "welcome#index"
