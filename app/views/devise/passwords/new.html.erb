@@ -3,12 +3,14 @@
 <%= form_for(resource,
       as: resource_name,
       url: password_path(resource_name),
+      data: { turbo: false },
       html: { method: :post }) do |f| %>
 
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="mb-3">
     <%= f.label :email, "メールアドレス", class: "form-label" %>
+
     <%= f.email_field :email,
           class: "form-control",
           autofocus: true,
