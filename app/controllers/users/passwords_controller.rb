@@ -1,13 +1,11 @@
 class Users::PasswordsController < Devise::PasswordsController
   def create
-    super do |resource|
-      if successfully_sent?(resource)
-        redirect_to password_sent_path and return
-      end
+    self.resource = resource_class.send_reset_password_instructions(resource_params)
+
+    if successfully_sent?(resource)
+      render :sent
+    else
+      render :new, status: :unprocessable_entity
     end
   end
-
-  def sent; end
-  def changed; end
-
 end
