@@ -11,4 +11,7 @@ class Users::PasswordsController < Devise::PasswordsController
 
   def sent
   end
+
+  def changed
+  end
 end

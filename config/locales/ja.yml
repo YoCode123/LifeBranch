@@ -5,10 +5,6 @@ ja:
       updated: "アカウント情報を更新しました"
       destroyed: "アカウントを削除しました"
 
-      user:
-        updated: "アカウント情報を更新しました"
-        destroyed: "アカウントを削除しました"
-
     sessions:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
@@ -18,9 +14,11 @@ ja:
         signed_out: "ログアウトしました"
 
     passwords:
+      send_paranoid_instructions: "パスワード再設定メールを送信しました"
       send_instructions: "パスワード再設定メールを送信しました"
 
       user:
+        send_paranoid_instructions: "パスワード再設定メールを送信しました"
         send_instructions: "パスワード再設定メールを送信しました"
 
     failure:
