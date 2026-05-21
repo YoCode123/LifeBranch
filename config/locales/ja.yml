@@ -4,10 +4,32 @@ ja:
       signed_up: "アカウント登録が完了しました"
       updated: "アカウント情報を更新しました"
       destroyed: "アカウントを削除しました"
+
     mailer:
       reset_password_instructions:
         subject: "【LifeBranch】パスワード再設定"
+
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+
+      user:
+        signed_in: "ログインしました"
+        signed_out: "ログアウトしました"
+
+    passwords:
+      send_paranoid_instructions: "パスワード再設定メールを送信しました"
+      send_instructions: "パスワード再設定メールを送信しました"
+
+      user:
+        send_paranoid_instructions: "パスワード再設定メールを送信しました"
+        send_instructions: "パスワード再設定メールを送信しました"
+
     failure:
+      invalid: "メールアドレスまたはパスワードが正しくありません"
+      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
+      unauthenticated: "ログインしてください"
+
       user:
         already_authenticated: "すでにログインしています。"
 
