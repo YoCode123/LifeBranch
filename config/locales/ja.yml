@@ -13,46 +13,15 @@ ja:
       signed_in: "ログインしました"
       signed_out: "ログアウトしました"
 
-      user:
-        signed_in: "ログインしました"
-        signed_out: "ログアウトしました"
-
     passwords:
       send_paranoid_instructions: "パスワード再設定メールを送信しました"
       send_instructions: "パスワード再設定メールを送信しました"
-
-      user:
-        send_paranoid_instructions: "パスワード再設定メールを送信しました"
-        send_instructions: "パスワード再設定メールを送信しました"
 
     failure:
       invalid: "メールアドレスまたはパスワードが正しくありません"
       not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
       unauthenticated: "ログインしてください"
-
-      user:
-        already_authenticated: "すでにログインしています。"
-
-    sessions:
-      signed_in: "ログインしました"
-      signed_out: "ログアウトしました"
-
-      user:
-        signed_in: "ログインしました"
-        signed_out: "ログアウトしました"
-
-    passwords:
-      send_paranoid_instructions: "パスワード再設定メールを送信しました"
-      send_instructions: "パスワード再設定メールを送信しました"
-
-      user:
-        send_paranoid_instructions: "パスワード再設定メールを送信しました"
-        send_instructions: "パスワード再設定メールを送信しました"
-
-    failure:
-      invalid: "メールアドレスまたはパスワードが正しくありません"
-      not_found_in_database: "メールアドレスまたはパスワードが正しくありません"
-      unauthenticated: "ログインしてください"
+      already_authenticated: "すでにログインしています。"
 
   activerecord:
     models:
