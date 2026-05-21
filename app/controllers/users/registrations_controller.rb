@@ -6,6 +6,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_resource(resource, params)
+    params.delete(:avatar) if params[:avatar].blank?
+
     if params[:password].present?
       resource.update_with_password(params)
     else
