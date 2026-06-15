@@ -6,20 +6,17 @@
         new_decision_path,
         class: "btn btn-primary" %>
 
-  <%= form_with url: decisions_path,
-        method: :get,
-        local: true,
-        class: "d-flex gap-2 flex-grow-1" do %>
+  <%= search_form_for @q,
+      class: "d-flex gap-2 flex-grow-1" do |f| %>
 
-    <%= text_field_tag :q,
-          params[:q],
-          class: "form-control",
-          placeholder: "タイトルで検索" %>
+  <%= f.search_field :title_cont,
+        class: "form-control",
+        placeholder: "タイトルで検索" %>
 
-    <%= submit_tag "検索",
-          class: "btn btn-outline-secondary" %>
+  <%= f.submit "検索",
+        class: "btn btn-outline-secondary" %>
 
-  <% end %>
+<% end %>
 
 </div>
 

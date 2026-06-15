@@ -4,11 +4,8 @@ class DecisionsController < ApplicationController
   before_action :set_emotion_types, only: [:new, :edit, :create, :update]
 
   def index
-    @decisions = current_user.decisions.order(created_at: :desc)
-
-    if params[:q].present?
-      @decisions = @decisions.where("title LIKE ?", "%#{params[:q]}%")
-    end
+    @q = current_user.decisions.ransack(params[:q])
+    @decisions = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def show

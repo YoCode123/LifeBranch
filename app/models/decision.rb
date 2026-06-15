@@ -31,6 +31,10 @@ class Decision < ApplicationRecord
     end
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["title"]
+  end
+
   def clear_selected_option_if_destroyed
     return if selected_option_id.blank?
 
