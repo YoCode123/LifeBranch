@@ -13,6 +13,13 @@
         class: "form-control",
         placeholder: "タイトルで検索" %>
 
+  <%= f.collection_select :category_id_eq,
+      Category.all,
+      :id,
+      :name,
+      { include_blank: "すべてのカテゴリ" },
+      { class: "form-select" } %>
+
   <%= f.submit "検索",
         class: "btn btn-outline-secondary" %>
 

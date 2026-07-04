@@ -32,7 +32,11 @@ class Decision < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title"]
+    ["title", "category_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["category"]
   end
 
   def clear_selected_option_if_destroyed
