@@ -20,6 +20,9 @@
       { include_blank: "すべてのカテゴリ" },
       { class: "form-select" } %>
 
+  <%= f.date_field :recorded_on_eq,
+        class: "form-control" %>
+
   <%= f.submit "検索",
         class: "btn btn-outline-secondary" %>
 
