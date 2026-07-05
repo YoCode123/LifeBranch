@@ -33,7 +33,7 @@ class Decision < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "category_id", "recorded_on"]
+    ["title", "category_id", "recorded_on", "created_at"]
   end
 
   def self.ransackable_associations(auth_object = nil)
