@@ -30,6 +30,13 @@
 
 </div>
 
+<div class="mb-3">
+  並び替え：
+  <%= sort_link(@q, :created_at, "作成日") %> |
+  <%= sort_link(@q, :recorded_on, "記録日") %> |
+  <%= sort_link(@q, :title, "タイトル") %>
+</div>
+
 <% if @decisions.any? %>
 
   <% @decisions.each do |decision| %>

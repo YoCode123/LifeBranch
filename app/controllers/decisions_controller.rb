@@ -5,7 +5,10 @@ class DecisionsController < ApplicationController
 
   def index
     @q = current_user.decisions.ransack(params[:q])
-    @decisions = @q.result(distinct: true).order(created_at: :desc)
+
+    @q.sorts = "created_at desc" if @q.sorts.empty?
+
+    @decisions = @q.result(distinct: true)
   end
 
   def show
