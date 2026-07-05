@@ -16,6 +16,7 @@ class Decision < ApplicationRecord
   validates :title, presence: true, length: { maximum: 100 }
   validates :category_id, presence: true
   validates :reason, length: { maximum: 1000 }, allow_blank: true
+  validates :recorded_on, presence: true
 
   validate :options_presence
   validate :options_content_uniqueness
@@ -32,7 +33,7 @@ class Decision < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "category_id"]
+    ["title", "category_id", "recorded_on"]
   end
 
   def self.ransackable_associations(auth_object = nil)
