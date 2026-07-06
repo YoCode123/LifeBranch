@@ -12,3 +12,16 @@
 .choicecolor {
   color: #198754;
 }
+
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 10px 20px;
+}
+
+.btn-primary,
+.btn-danger,
+.btn-outline-secondary,
+.btn-outline-dark {
+  min-width: 110px;
+}
