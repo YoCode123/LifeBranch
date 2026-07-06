@@ -13,14 +13,14 @@
 
       <div class="row g-3 align-items-end">
 
-        <div class="col-md-4">
+        <div class="col-12 col-lg-4">
           <%= f.label :title_cont, "タイトル", class: "form-label" %>
           <%= f.search_field :title_cont,
                 class: "form-control",
                 placeholder: "タイトルで検索" %>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-12 col-lg-3">
           <%= f.label :category_id_eq, "カテゴリ", class: "form-label" %>
           <%= f.collection_select :category_id_eq,
                 Category.all,
@@ -30,13 +30,13 @@
                 { class: "form-select" } %>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-12 col-lg-3">
           <%= f.label :recorded_on_eq, "記録日", class: "form-label" %>
           <%= f.date_field :recorded_on_eq,
                 class: "form-control" %>
         </div>
 
-        <div class="col-md-2 d-grid">
+        <div class="col-12 col-lg-2 d-grid">
           <%= f.submit "検索",
                 class: "btn btn-primary" %>
         </div>
