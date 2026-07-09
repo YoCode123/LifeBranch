@@ -1,10 +1,12 @@
 <h1 class="mb-4">意思決定一覧</h1>
 
-<div class="d-flex justify-content-end mb-3">
-  <%= link_to "＋ 新規作成",
-      new_decision_path,
-      class: "btn btn-primary" %>
-</div>
+<% if @decisions.any? %>
+  <div class="d-flex justify-content-end mb-3">
+    <%= link_to "＋ 新規作成",
+          new_decision_path,
+          class: "btn btn-primary" %>
+  </div>
+<% end %>
 
 <div class="card shadow-sm mb-3">
   <div class="card-body">
@@ -99,8 +101,21 @@
 
 <% else %>
 
-  <div class="alert alert-light text-center">
-    まだ意思決定がありません
-  </div>
+  <div class="text-center py-5">
 
+    <div class="display-1 mb-3">
+      📝
+    </div>
+
+    <h4>まだ意思決定がありません</h4>
+
+    <p class="text-muted mb-4">
+      最初の意思決定を記録してみましょう。
+    </p>
+
+    <%= link_to "＋ 新規作成",
+          new_decision_path,
+          class: "btn btn-primary" %>
+
+  </div>
 <% end %>
