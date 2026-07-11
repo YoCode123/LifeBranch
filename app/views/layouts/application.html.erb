@@ -76,32 +76,47 @@
 
             <ul class="dropdown-menu dropdown-menu-end">
 
-              <li class="dropdown-item-text fw-bold">
-                <%= current_user.name %>
-              </li>
+  <li class="dropdown-item-text fw-bold">
+    <%= current_user.name %>
+  </li>
 
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+  <li class="d-md-none">
+    <hr class="dropdown-divider">
+  </li>
 
-              <li>
-                <%= link_to "プロフィール編集",
-                      edit_user_registration_path,
-                      class: "dropdown-item",
-                      data: { turbo: false } %>
-              </li>
+  <li class="d-md-none">
+    <%= link_to "ダッシュボード",
+          dashboard_path,
+          class: "dropdown-item" %>
+  </li>
 
-              <li>
-                <%= link_to "ログアウト",
-                      destroy_user_session_path,
-                      class: "dropdown-item text-danger",
-                      data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "ログアウトしますか？"
-                      } %>
-              </li>
+  <li class="d-md-none">
+    <%= link_to "意思決定一覧",
+          decisions_path,
+          class: "dropdown-item" %>
+  </li>
 
-            </ul>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+
+  <li>
+    <%= link_to "プロフィール編集",
+          edit_user_registration_path,
+          class: "dropdown-item" %>
+  </li>
+
+  <li>
+    <%= link_to "ログアウト",
+          destroy_user_session_path,
+          class: "dropdown-item text-danger",
+          data: {
+            turbo_method: :delete,
+            turbo_confirm: "ログアウトしますか？"
+          } %>
+  </li>
+
+</ul>
 
           </div>
 
@@ -131,7 +146,7 @@
 
         <% if user_signed_in? %>
 
-          <aside class="col-md-3 col-lg-2 bg-light min-vh-100 border-end p-3">
+          <aside class="d-none d-md-block col-md-3 col-lg-2 bg-light min-vh-100 border-end p-3">
 
             <ul class="nav flex-column">
 
@@ -157,7 +172,7 @@
 
           </aside>
 
-          <main class="col-md-9 col-lg-10 p-4">
+          <main class="col-12 col-md-9 col-lg-10 p-3 p-lg-4">
 
         <% else %>
 
