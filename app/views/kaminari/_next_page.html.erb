@@ -1,0 +1,9 @@
+<% if current_page.last? %>
+  <li class="page-item disabled">
+    <span class="page-link">次へ →</span>
+  </li>
+<% else %>
+  <li class="page-item">
+    <%= link_to "次へ →", url, rel: "next", class: "page-link" %>
+  </li>
+<% end %>

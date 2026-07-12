@@ -8,13 +8,15 @@ class DecisionsController < ApplicationController
 
     @q.sorts = "created_at desc" if @q.sorts.empty?
 
-    @decisions = @q.result(distinct: true)
+    @decisions = @q
+      .result(distinct: true)
+      .page(params[:page])
+      .per(3)
   end
 
   def show
     @decision = current_user.decisions.find(params[:id]).reload
   end
-
 
   def new
     @decision = Decision.new
