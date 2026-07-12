@@ -38,10 +38,16 @@
                 class: "form-control" %>
         </div>
 
-        <div class="col-12 col-lg-2 d-grid">
-          <%= f.submit "検索",
-                class: "btn btn-primary" %>
-        </div>
+        <div class="col-12 col-lg-2">
+  <div class="d-grid gap-2">
+    <%= f.submit "検索",
+          class: "btn btn-primary" %>
+
+    <%= link_to "クリア",
+          decisions_path,
+          class: "btn btn-outline-secondary" %>
+  </div>
+</div>
 
       </div>
 
@@ -63,6 +69,18 @@
     </div>
 
   </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <p class="text-muted mb-0">
+    <strong><%= @decisions.count %></strong> 件の意思決定
+  </p>
+
+  <% if params[:q].present? %>
+    <%= link_to "検索条件をクリア",
+          decisions_path,
+          class: "btn btn-outline-secondary btn-sm" %>
+  <% end %>
 </div>
 
 <% if @decisions.any? %>
@@ -98,6 +116,14 @@
     </div>
 
   <% end %>
+
+ <div class="d-flex justify-content-between align-items-center mb-3">
+  <p class="text-muted mb-0">
+    全 <strong><%= @decisions.total_count %></strong> 件
+  </p>
+
+  <%= paginate @decisions %>
+</div>
 
 <% else %>
 
