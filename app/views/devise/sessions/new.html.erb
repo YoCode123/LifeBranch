@@ -2,7 +2,11 @@
 
 <%= form_for(resource,
       as: resource_name,
-      url: session_path(resource_name)) do |f| %>
+      url: session_path(resource_name),
+      data: {
+        controller: "loading",
+        action: "submit->loading#submit"
+      }) do |f| %>
 
   <!-- メール -->
   <div class="mb-3">
@@ -44,7 +48,8 @@
   <!-- submit -->
   <div class="d-grid">
     <%= f.submit "ログイン",
-          class: "btn btn-primary" %>
+          class: "btn btn-primary",
+          data: { loading_text: "ログイン中..." } %>
   </div>
 
 <% end %>

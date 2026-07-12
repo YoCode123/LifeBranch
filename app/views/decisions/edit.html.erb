@@ -21,7 +21,8 @@
 <%= form_with model: @decision,
       local: true,
       data: {
-        controller: "decision-form decision-preview"
+        controller: "decision-preview loading",
+        action: "submit->loading#submit"
       } do |f| %>
 
   <div class="mb-3">
@@ -202,7 +203,8 @@
   <div class="mt-4">
 
     <%= f.submit "更新する",
-          class: "btn btn-primary w-100" %>
+          class: "btn btn-primary w-100",
+          data: { loading_text: "更新中..." } %>
 
   </div>
 

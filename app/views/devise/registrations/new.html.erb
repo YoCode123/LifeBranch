@@ -2,7 +2,11 @@
 
 <%= form_for(resource,
       as: resource_name,
-      url: registration_path(resource_name)) do |f| %>
+      url: registration_path(resource_name),
+      data: {
+        controller: "loading",
+        action: "submit->loading#submit"
+      }) do |f| %>
 
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -41,7 +45,8 @@
   </div>
 
   <div class="d-grid">
-    <%= f.submit "登録", class: "btn btn-primary" %>
+    <%= f.submit "新規登録", class: "btn btn-primary",
+    data: { loading_text: "登録中..." } %>
   </div>
 
 <% end %>
