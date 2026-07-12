@@ -53,26 +53,22 @@
   </div>
 
   <div class="mb-4"
-     data-controller="category-suggestions"
-     data-categories="<%= Category.all.to_json %>">
+     data-controller="category-suggestions">
 
   <%= f.label :category_id, "カテゴリ", class: "form-label" %>
 
   <%= text_field_tag :category_name,
         @decision.category&.name,
-        list: "category-list",
         class: "form-control",
         placeholder: "カテゴリを入力または選択",
         data: {
           category_suggestions_target: "input",
-          action: "change->category-suggestions#select"
+          action: "focus->category-suggestions#search input->category-suggestions#search"
         } %>
 
-  <datalist id="category-list">
-    <% Category.all.each do |category| %>
-      <option value="<%= category.name %>">
-    <% end %>
-  </datalist>
+  <div class="list-group mt-2"
+       data-category-suggestions-target="list">
+  </div>
 
   <%= f.hidden_field :category_id,
         value: @decision.category_id,
