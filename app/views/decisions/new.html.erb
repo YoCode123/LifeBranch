@@ -52,15 +52,37 @@
     <%= f.date_field :recorded_on, class: "form-control" %>
   </div>
 
-  <div class="mb-4">
-    <%= f.label :category_id, "カテゴリ", class: "form-label" %>
-    <%= f.collection_select :category_id,
-          Category.all,
-          :id,
-          :name,
-          { prompt: "選択してください" },
-          class: "form-select" %>
-  </div>
+  <div class="mb-4"
+     data-controller="category-suggestions"
+     data-categories="<%= Category.all.to_json %>">
+
+  <%= f.label :category_id, "カテゴリ", class: "form-label" %>
+
+  <%= text_field_tag :category_name,
+        @decision.category&.name,
+        list: "category-list",
+        class: "form-control",
+        placeholder: "カテゴリを入力または選択",
+        data: {
+          category_suggestions_target: "input",
+          action: "change->category-suggestions#select"
+        } %>
+
+  <datalist id="category-list">
+    <% Category.all.each do |category| %>
+      <option value="<%= category.name %>">
+    <% end %>
+  </datalist>
+
+  <%= f.hidden_field :category_id,
+        value: @decision.category_id,
+        data: {
+          category_suggestions_target: "hidden"
+        } %>
+
+</div>
+
+
 
   <hr>
 
