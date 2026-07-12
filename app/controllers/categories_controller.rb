@@ -1,9 +1,14 @@
 class CategoriesController < ApplicationController
   def search
-    categories = Category.where(
-      "name LIKE ?",
-      "%#{params[:keyword]}%"
-    )
+    categories =
+      if params[:keyword].present?
+        Category.where(
+          "name LIKE ?",
+          "%#{params[:keyword]}%"
+        )
+      else
+        Category.all
+      end
 
     render json: categories
   end
