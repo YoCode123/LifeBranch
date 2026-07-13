@@ -17,15 +17,21 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
-  resources :decisions do
-    resources :options, only: [:create]
+resources :decisions do
+  collection do
+    get :timeline
   end
 
-  resources :categories do
+  resources :options, only: [:create]
+end
+
+resources :categories do
   collection do
     get :search
   end
 end
+
+
 
   get "up" => "rails/health#show", as: :rails_health_check
 
