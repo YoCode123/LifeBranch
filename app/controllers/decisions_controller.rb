@@ -23,6 +23,14 @@ class DecisionsController < ApplicationController
     3.times { @decision.options.build }
   end
 
+  def timeline
+  @decisions = current_user.decisions
+                           .includes(:category)
+                           .order(recorded_on: :desc)
+end
+
+
+
 def create
   @decision = current_user.decisions.new(decision_params)
 

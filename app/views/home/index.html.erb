@@ -37,6 +37,10 @@
 
 </div>
 
+<%= link_to "タイムラインを見る",
+      timeline_decisions_path,
+      class: "btn btn-outline-primary w-100 my-3" %>
+
 <% @decisions.limit(5).each do |decision| %>
 
   <%= link_to decision_path(decision),
