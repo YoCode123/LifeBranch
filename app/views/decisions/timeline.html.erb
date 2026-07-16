@@ -2,19 +2,31 @@
 
 <div class="timeline">
 
+  <% current_month = nil %>
+
   <% @decisions.each do |decision| %>
+
+    <% date = decision.recorded_on || decision.created_at.to_date %>
+
+    <% if current_month != date.strftime("%Y年%m月") %>
+      <% current_month = date.strftime("%Y年%m月") %>
+
+      <h4 class="mt-4 mb-3">
+        <%= current_month %>
+      </h4>
+    <% end %>
 
     <div class="timeline-item">
 
       <div class="timeline-dot"></div>
 
       <%= link_to decision,
-            class: "card text-decoration-none text-dark shadow-sm" do %>
+            class: "card text-decoration-none text-dark shadow-sm w-100" do %>
 
         <div class="card-body">
 
           <small class="text-muted">
-            <%= (decision.recorded_on || decision.created_at).strftime("%Y/%m/%d") %>
+            <%= date.strftime("%m/%d") %>
           </small>
 
           <h5 class="mt-2">
