@@ -26,7 +26,7 @@ class DecisionsController < ApplicationController
   def timeline
   @decisions = current_user.decisions
                            .includes(:category)
-                           .order(recorded_on: :desc)
+                           .order(recorded_on: :desc, created_at: :desc)
 end
 
 
