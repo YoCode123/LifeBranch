@@ -21,7 +21,7 @@
 
 .timeline-dot {
   position: absolute;
-  left: -1px;
+  left: -31px;   /* ← ここを変更 */
   top: 20px;
   width: 16px;
   height: 16px;
@@ -31,4 +31,14 @@
 
 .timeline-item .card {
   margin-left: 25px;
+}
+
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 28px;
+  width: 40px;
+  height: 2px;
+  background: #dee2e6;
 }
