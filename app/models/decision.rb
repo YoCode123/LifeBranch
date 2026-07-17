@@ -37,7 +37,7 @@ class Decision < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["category"]
+    ["category", "decision_emotions", "emotion_types"]
   end
 
   def clear_selected_option_if_destroyed

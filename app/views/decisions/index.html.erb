@@ -33,6 +33,17 @@
         </div>
 
         <div class="col-12 col-lg-3">
+  <%= f.label :decision_emotions_emotion_type_id_eq, "感情", class: "form-label" %>
+
+  <%= f.collection_select :decision_emotions_emotion_type_id_eq,
+        EmotionType.all,
+        :id,
+        :name,
+        { include_blank: "すべて" },
+        { class: "form-select" } %>
+</div>
+
+        <div class="col-12 col-lg-3">
   <%= f.label :recorded_on_gteq, "開始日", class: "form-label" %>
   <%= f.date_field :recorded_on_gteq, class: "form-control" %>
 </div>
@@ -112,9 +123,21 @@
 
         </div>
 
-        <span class="badge bg-secondary">
-          <%= decision.category&.name || "未設定" %>
-        </span>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+  <span class="badge bg-secondary">
+    <%= decision.category&.name || "未設定" %>
+  </span>
+
+  <% decision.emotion_types.each do |emotion| %>
+    <span class="badge bg-warning text-dark">
+      <%= emotion.name %>
+    </span>
+  <% end %>
+</div>
+
+
+
+
 
       </div>
     </div>
