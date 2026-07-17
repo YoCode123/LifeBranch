@@ -42,3 +42,41 @@
   height: 2px;
   background: #dee2e6;
 }
+
+@media (max-width: 768px) {
+  .timeline {
+    margin-left: 0;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    left: 6px;
+  }
+
+  .timeline-dot {
+    left: -25px;
+    top: 23px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .timeline-item::after {
+  left: -13px;
+  width: 31px;
+}
+
+  .timeline-item .card {
+    margin-left: 18px;
+  }
+  .card-body {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+}
