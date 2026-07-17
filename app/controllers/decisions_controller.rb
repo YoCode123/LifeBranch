@@ -9,9 +9,10 @@ class DecisionsController < ApplicationController
     @q.sorts = "created_at desc" if @q.sorts.empty?
 
     @decisions = @q
-      .result(distinct: true)
-      .page(params[:page])
-      .per(3)
+  .result(distinct: true)
+  .includes(:category, :emotion_types)
+  .page(params[:page])
+  .per(3)
   end
 
   def show
