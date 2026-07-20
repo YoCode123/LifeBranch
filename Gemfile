@@ -75,3 +75,5 @@ gem "devise", "~> 5.0"
 gem "ransack", "~> 4.4"
 
 gem "chartkick"
+
+gem "groupdate"
