@@ -2,6 +2,35 @@
 
 <% if @emotion_counts.present? %>
 
+  <div class="row mb-4">
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h6 class="text-muted">総感情数</h6>
+          <h2><%= @total_emotions %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h6 class="text-muted">最も多い感情</h6>
+
+          <% if @most_emotion.present? %>
+            <h2>
+              <%= @most_emotion.first %>
+              (<%= @most_emotion.last %>件)
+            </h2>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h4 class="mb-3">感情の割合</h4>
@@ -12,7 +41,7 @@
     </div>
   </div>
 
-  <div class="card shadow-sm">
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h4 class="mb-3">感情データ集計</h4>
 
@@ -23,6 +52,7 @@
             <th class="text-end">件数</th>
           </tr>
         </thead>
+
         <tbody>
           <% @emotion_counts.each do |emotion, count| %>
             <tr>
@@ -31,7 +61,17 @@
             </tr>
           <% end %>
         </tbody>
+
       </table>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="mb-3">月別の感情数</h4>
+
+      <%= column_chart @monthly_emotions,
+            height: "350px" %>
     </div>
   </div>
 
