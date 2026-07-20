@@ -2,13 +2,36 @@
 
 <% if @emotion_counts.present? %>
 
-  <div class="card shadow-sm">
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
       <h4 class="mb-3">感情の割合</h4>
 
       <%= pie_chart @emotion_counts,
             donut: true,
             height: "400px" %>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="mb-3">感情データ集計</h4>
+
+      <table class="table table-striped mb-0">
+        <thead>
+          <tr>
+            <th>感情</th>
+            <th class="text-end">件数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @emotion_counts.each do |emotion, count| %>
+            <tr>
+              <td><%= emotion %></td>
+              <td class="text-end"><%= count %> 件</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 
