@@ -1,0 +1,21 @@
+<h1 class="mb-4">感情分析</h1>
+
+<% if @emotion_counts.present? %>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="mb-3">感情の割合</h4>
+
+      <%= pie_chart @emotion_counts,
+            donut: true,
+            height: "400px" %>
+    </div>
+  </div>
+
+<% else %>
+
+  <div class="alert alert-info">
+    感情データがありません。
+  </div>
+
+<% end %>

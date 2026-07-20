@@ -102,6 +102,10 @@
           class: "dropdown-item" %>
   </li>
 
+<li class="d-md-none">
+  <%= link_to "感情分析", emotion_analysis_path, class: "nav-link" %>
+</li>
+
   <li>
     <hr class="dropdown-divider">
   </li>
@@ -177,6 +181,8 @@
              <%= link_to "タイムライン",
       timeline_decisions_path,
       class: "nav-link w-100" %>
+
+      <%= link_to "感情分析", emotion_analysis_path, class: "nav-link" %>
 
             </ul>
 

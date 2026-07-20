@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "emotion_analysis/index"
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -35,6 +36,7 @@ end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
+  get "emotion_analysis", to: "emotion_analysis#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
