@@ -25,6 +25,48 @@
         class: "btn btn-primary w-100" %>
 </div>
 
+<div class="row g-3 mb-4">
+
+  <div class="col-md-6">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">意思決定数</h6>
+        <h2><%= @decision_count %></h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="text-muted">最も多い感情</h6>
+        <h2><%= @most_emotion&.first || "なし" %></h2>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h5 class="mb-3">感情の割合</h5>
+
+    <% if @emotion_chart.present? %>
+      <%= pie_chart @emotion_chart,
+            donut: true,
+            height: "280px" %>
+    <% else %>
+      <p class="text-muted mb-0">感情データがありません。</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="text-end mb-4">
+  <%= link_to "感情分析を見る →",
+        emotion_analysis_path,
+        class: "btn btn-outline-primary" %>
+</div>
+
 <hr>
 
 <div class="mb-3 d-flex justify-content-between align-items-center">
