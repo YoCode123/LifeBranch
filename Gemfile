@@ -77,3 +77,5 @@ gem "ransack", "~> 4.4"
 gem "chartkick"
 
 gem "groupdate"
+
+gem "pundit"
