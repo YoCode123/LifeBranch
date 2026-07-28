@@ -1,6 +1,6 @@
 class DecisionsController < ApplicationController
-  after_action :verify_authorized, except: %i[index timeline]
-  after_action :verify_policy_scoped, only: %i[index timeline]
+  after_action :verify_authorized, except: %i[index timeline analysis]
+  after_action :verify_policy_scoped, only: %i[index timeline analysis]
 
   before_action :authenticate_user!
   before_action :set_decision, only: %i[show edit update destroy]
@@ -32,6 +32,22 @@ class DecisionsController < ApplicationController
                    .includes(:category)
                    .order(recorded_on: :desc, created_at: :desc)
   end
+
+def analysis
+  @category_emotions =
+    policy_scope(Decision)
+      .joins(:category, :decision_emotions, :emotion_types)
+      .group("categories.name", "emotion_types.name")
+      .count
+
+  @chart_data =
+    @category_emotions.map do |(category, emotion), count|
+      [
+        "#{category}（#{emotion}）",
+        count
+      ]
+    end
+end
 
   def create
     @decision = current_user.decisions.new(decision_params)

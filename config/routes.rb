@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "emotion_analysis/index"
-
   devise_for :users, controllers: {
     registrations: "users/registrations",
     passwords: "users/passwords"
@@ -18,25 +16,22 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
-resources :decisions do
-  collection do
-    get :timeline
+  resources :decisions do
+    collection do
+      get :timeline
+      get :analysis
+    end
+
+    resources :options, only: [:create]
   end
 
-  resources :options, only: [:create]
-end
-
-resources :categories do
-  collection do
-    get :search
+  resources :categories do
+    collection do
+      get :search
+    end
   end
-end
-
-
 
   get "up" => "rails/health#show", as: :rails_health_check
-
-  get "emotion_analysis", to: "emotion_analysis#index"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
