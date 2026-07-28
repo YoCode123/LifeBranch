@@ -1,0 +1,36 @@
+<h2 class="mb-4">カテゴリ別感情分析</h2>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+
+    <%= column_chart @chart_data,
+          stacked: true,
+          height: "400px" %>
+
+  </div>
+</div>
+
+
+<h3 class="mb-3">詳細データ</h3>
+
+<table class="table table-bordered">
+
+  <thead class="table-light">
+    <tr>
+      <th>カテゴリ</th>
+      <th>感情</th>
+      <th>件数</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @category_emotions.each do |(category, emotion), count| %>
+      <tr>
+        <td><%= category %></td>
+        <td><%= emotion %></td>
+        <td><%= count %> 件</td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
