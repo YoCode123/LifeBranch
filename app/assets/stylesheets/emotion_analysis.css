@@ -52,5 +52,41 @@
 }
 
 .emotion-analysis__chart {
+  width: 100%;
   min-height: 300px;
+  overflow-x: auto;
+}
+
+/* スマホ表示 */
+@media (max-width: 767.98px) {
+  .emotion-analysis {
+    max-width: 100%;
+  }
+
+  .emotion-analysis__title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .emotion-analysis__summary-value {
+    font-size: 1.6rem;
+  }
+
+  .emotion-analysis__card .card-body {
+    padding: 1.25rem !important;
+  }
+
+  .emotion-analysis__section-title {
+    font-size: 1.1rem;
+  }
+
+  .emotion-analysis__chart {
+    min-height: 280px;
+  }
+
+  .emotion-analysis__table td,
+  .emotion-analysis__table th {
+    padding: 0.7rem 0.6rem;
+    font-size: 0.9rem;
+  }
 }
