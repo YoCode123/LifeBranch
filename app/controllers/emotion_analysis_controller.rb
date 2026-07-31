@@ -2,18 +2,16 @@ class EmotionAnalysisController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @emotion_counts = current_user.decisions
-                                  .joins(:emotion_types)
-                                  .group("emotion_types.name")
-                                  .count
+    analysis = EmotionAnalysisService.new(current_user)
 
-    @total_emotions = @emotion_counts.values.sum
-    @most_emotion = @emotion_counts.max_by { |_, count| count }
+    @emotion_counts = analysis.emotion_counts
+    @total_emotions = analysis.total_emotions
+    @most_emotion = analysis.most_emotion
+    @monthly_emotions = analysis.monthly_emotions
+    @category_emotions = analysis.category_emotions
 
-    @monthly_emotions = current_user.decisions
-                                    .joins(:emotion_types)
-                                    .where.not(recorded_on: nil)
-                                    .group_by_month(:recorded_on, format: "%Y-%m")
-                                    .count
+    @category_chart_data = @category_emotions.map do |(category, emotion), count|
+      ["#{category}（#{emotion}）", count]
+    end
   end
 end
