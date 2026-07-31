@@ -16,10 +16,11 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
+  get "emotion_analysis", to: "emotion_analysis#index"
+
   resources :decisions do
     collection do
       get :timeline
-      get :analysis
     end
 
     resources :options, only: [:create]

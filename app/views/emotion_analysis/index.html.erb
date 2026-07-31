@@ -1,84 +1,170 @@
-<h1 class="mb-4">感情分析</h1>
+<div class="emotion-analysis">
 
-<% if @emotion_counts.present? %>
+  <h1 class="emotion-analysis__title">感情分析</h1>
 
-  <div class="row mb-4">
+  <% if @emotion_counts.present? %>
 
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
-          <h6 class="text-muted">総感情数</h6>
-          <h2><%= @total_emotions %></h2>
+    <!-- サマリー -->
+    <div class="row g-4 emotion-analysis__summary">
+
+      <div class="col-md-6">
+        <div class="card emotion-analysis__card h-100">
+          <div class="card-body text-center py-4">
+            <div class="emotion-analysis__summary-label">
+              総感情数
+            </div>
+
+            <p class="emotion-analysis__summary-value">
+              <%= @total_emotions %>
+            </p>
+          </div>
         </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card emotion-analysis__card h-100">
+          <div class="card-body text-center py-4">
+            <div class="emotion-analysis__summary-label">
+              最も多い感情
+            </div>
+
+            <% if @most_emotion.present? %>
+              <p class="emotion-analysis__summary-value">
+                <%= @most_emotion.first %>
+              </p>
+
+              <small class="text-muted">
+                <%= @most_emotion.last %>件
+              </small>
+            <% else %>
+              <p class="text-muted mb-0">なし</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 感情の割合 -->
+    <div class="card emotion-analysis__card mb-4">
+      <div class="card-body p-4">
+
+        <h2 class="emotion-analysis__section-title">
+          感情の割合
+        </h2>
+
+        <div class="emotion-analysis__chart">
+          <%= pie_chart @emotion_counts,
+                donut: true,
+                height: "400px" %>
+        </div>
+
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
-          <h6 class="text-muted">最も多い感情</h6>
+    <!-- 感情データ集計 -->
+    <div class="card emotion-analysis__card mb-4">
+      <div class="card-body p-4">
 
-          <% if @most_emotion.present? %>
-            <h2>
-              <%= @most_emotion.first %>
-              (<%= @most_emotion.last %>件)
-            </h2>
-          <% end %>
+        <h2 class="emotion-analysis__section-title">
+          感情データ集計
+        </h2>
 
+        <div class="table-responsive">
+          <table class="table table-striped emotion-analysis__table">
+
+            <thead>
+              <tr>
+                <th>感情</th>
+                <th class="text-end">件数</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @emotion_counts.each do |emotion, count| %>
+                <tr>
+                  <td><%= emotion %></td>
+                  <td class="text-end">
+                    <%= count %> 件
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+
+          </table>
         </div>
+
       </div>
     </div>
 
-  </div>
+    <!-- 月別の感情数 -->
+    <div class="card emotion-analysis__card mb-4">
+      <div class="card-body p-4">
 
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h4 class="mb-3">感情の割合</h4>
+        <h2 class="emotion-analysis__section-title">
+          月別の感情数
+        </h2>
 
-      <%= pie_chart @emotion_counts,
-            donut: true,
-            height: "400px" %>
+        <div class="emotion-analysis__chart">
+          <%= column_chart @monthly_emotions,
+                height: "350px" %>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      <h4 class="mb-3">感情データ集計</h4>
+    <!-- カテゴリ別感情分析 -->
+    <div class="card emotion-analysis__card mb-4">
+      <div class="card-body p-4">
 
-      <table class="table table-striped mb-0">
-        <thead>
-          <tr>
-            <th>感情</th>
-            <th class="text-end">件数</th>
-          </tr>
-        </thead>
+        <h2 class="emotion-analysis__section-title">
+          カテゴリ別感情分析
+        </h2>
 
-        <tbody>
-          <% @emotion_counts.each do |emotion, count| %>
-            <tr>
-              <td><%= emotion %></td>
-              <td class="text-end"><%= count %> 件</td>
-            </tr>
-          <% end %>
-        </tbody>
+        <div class="table-responsive mb-4">
+          <table class="table table-striped emotion-analysis__table">
 
-      </table>
+            <thead>
+              <tr>
+                <th>カテゴリ</th>
+                <th>感情</th>
+                <th class="text-end">件数</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @category_emotions.each do |(category, emotion), count| %>
+                <tr>
+                  <td><%= category %></td>
+                  <td><%= emotion %></td>
+                  <td class="text-end">
+                    <%= count %> 件
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+
+          </table>
+        </div>
+
+        <h3 class="emotion-analysis__section-title">
+          カテゴリ別の感情分布
+        </h3>
+
+        <div class="emotion-analysis__chart">
+          <%= column_chart @category_chart_data,
+                height: "350px" %>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <h4 class="mb-3">月別の感情数</h4>
+  <% else %>
 
-      <%= column_chart @monthly_emotions,
-            height: "350px" %>
+    <div class="alert alert-info">
+      感情データがありません。
     </div>
-  </div>
 
-<% else %>
+  <% end %>
 
-  <div class="alert alert-info">
-    感情データがありません。
-  </div>
-
-<% end %>
+</div>
