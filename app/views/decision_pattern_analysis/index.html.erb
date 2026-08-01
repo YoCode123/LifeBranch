@@ -1,3 +1,143 @@
-<h1>意思決定パターン分析</h1>
+<div class="decision-pattern-analysis">
 
-<%= column_chart @category_counts %>
+  <h1 class="mb-4">
+    意思パターン分析
+  </h1>
+
+  <% if @category_counts.present? %>
+
+    <div class="row g-4 mb-4">
+
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3 h-100">
+          <div class="card-body text-center py-4">
+
+            <p class="text-muted mb-2">
+              総意思決定数
+            </p>
+
+            <h2 class="fw-bold mb-0">
+              <%= @decision_count %>件
+            </h2>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3 h-100">
+          <div class="card-body text-center py-4">
+
+            <p class="text-muted mb-2">
+              最も多いカテゴリ
+            </p>
+
+            <% if @most_category.present? %>
+
+              <h2 class="fw-bold mb-1">
+                <%= @most_category.first %>
+              </h2>
+
+              <small class="text-muted">
+                <%= @most_category.last %>件
+              </small>
+
+            <% else %>
+
+              <p class="text-muted mb-0">
+                なし
+              </p>
+
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3 mb-4">
+
+      <div class="card-body p-4">
+
+        <h2 class="h5 fw-bold mb-4">
+          カテゴリ別意思決定数
+        </h2>
+
+
+        <%= column_chart @category_counts,
+              height: "350px" %>
+
+
+      </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+
+      <div class="card-body p-4">
+
+        <h2 class="h5 fw-bold mb-4">
+          カテゴリ別集計
+        </h2>
+
+
+        <div class="table-responsive">
+
+          <table class="table table-striped mb-0">
+
+            <thead>
+              <tr>
+                <th>
+                  カテゴリ
+                </th>
+
+                <th class="text-end">
+                  件数
+                </th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+
+              <% @category_counts.each do |category, count| %>
+
+                <tr>
+
+                  <td>
+                    <%= category %>
+                  </td>
+
+
+                  <td class="text-end">
+                    <%= count %>件
+                  </td>
+
+                </tr>
+
+              <% end %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  <% else %>
+
+
+    <div class="alert alert-info">
+      意思決定データがありません。
+    </div>
+
+
+  <% end %>
+
+</div>
