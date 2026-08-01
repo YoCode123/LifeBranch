@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "decision_pattern_analysis/index"
   devise_for :users, controllers: {
     registrations: "users/registrations",
     passwords: "users/passwords"
@@ -17,6 +18,9 @@ Rails.application.routes.draw do
   get "dashboard", to: "home#index"
 
   get "emotion_analysis", to: "emotion_analysis#index"
+
+  get "decision_pattern_analysis",
+    to: "decision_pattern_analysis#index"
 
   resources :decisions do
     collection do
