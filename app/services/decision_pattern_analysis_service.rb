@@ -10,12 +10,15 @@ class DecisionPatternAnalysisService
       .count
   end
 
-  def decision_count
+  def total_decisions
     decisions.count
   end
 
-  def most_category
-    category_counts.max_by { |_, count| count }
+  def decision_counts_by_month
+    decisions
+      .where.not(recorded_on: nil)
+      .group_by_month(:recorded_on, format: "%Y-%m")
+      .count
   end
 
   private
