@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   db:
     image: postgres:15
@@ -20,6 +19,21 @@ services:
       - .:/app
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: lifebranch_development
+
+  job:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bin/jobs
+    volumes:
+      - .:/app
     depends_on:
       - db
     environment:
