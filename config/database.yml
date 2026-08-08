@@ -19,12 +19,21 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: <%= ENV['DATABASE_NAME'] || 'lifebranch_development' %>
-  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
-  password: <%= ENV['DATABASE_PASSWORD'] || 'password' %>
-  host: <%= ENV['DATABASE_HOST'] || 'db' %>
-  port: 5432
+  primary:
+    <<: *default
+    database: <%= ENV['DATABASE_NAME'] || 'lifebranch_development' %>
+    username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+    password: <%= ENV['DATABASE_PASSWORD'] || 'password' %>
+    host: <%= ENV['DATABASE_HOST'] || 'db' %>
+    port: 5432
+
+  queue:
+    <<: *default
+    database: <%= ENV['DATABASE_NAME'] || 'lifebranch_development' %>
+    username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+    password: <%= ENV['DATABASE_PASSWORD'] || 'password' %>
+    host: <%= ENV['DATABASE_HOST'] || 'db' %>
+    port: 5432
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
