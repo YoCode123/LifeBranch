@@ -12,4 +12,5 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   has_one_attached :avatar
   has_many :decisions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 end

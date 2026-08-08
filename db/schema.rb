@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_09_075133) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_08_140549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_075133) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "message"
+    t.string "notification_type"
+    t.boolean "read"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "options", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -113,5 +124,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_09_075133) do
   add_foreign_key "decisions", "categories"
   add_foreign_key "decisions", "options", column: "selected_option_id", on_delete: :nullify
   add_foreign_key "decisions", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "options", "decisions"
 end
