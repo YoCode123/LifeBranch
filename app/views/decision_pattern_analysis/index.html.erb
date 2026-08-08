@@ -1,9 +1,5 @@
 <div class="decision-pattern-analysis">
 
-  <h1 class="decision-pattern-analysis__title">
-    意思パターン分析
-  </h1>
-
   <% if @decision_count.present? && @decision_count > 0 %>
 
     <div class="row g-4 decision-pattern-analysis__summary">
@@ -68,7 +64,19 @@
 
           <div class="decision-pattern-analysis__chart">
             <%= column_chart @category_counts,
-                  height: "350px" %>
+                  height: "350px",
+                  xtitle: "カテゴリ",
+                  ytitle: "意思決定数",
+                  library: {
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                        ticks: {
+                          precision: 0
+                        }
+                      }
+                    }
+                  } %>
           </div>
 
         </div>
@@ -87,7 +95,19 @@
 
         <div class="decision-pattern-analysis__chart">
           <%= column_chart @decision_counts,
-                height: "350px" %>
+                height: "350px",
+                xtitle: "月",
+                ytitle: "意思決定数",
+                library: {
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        precision: 0
+                      }
+                    }
+                  }
+                } %>
         </div>
 
       </div>
@@ -142,7 +162,6 @@
       </div>
 
     <% end %>
-
 
   <% else %>
 
