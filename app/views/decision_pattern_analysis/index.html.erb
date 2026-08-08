@@ -1,42 +1,42 @@
 <div class="decision-pattern-analysis">
 
-  <h1 class="mb-4">
+  <h1 class="decision-pattern-analysis__title">
     意思パターン分析
   </h1>
 
   <% if @decision_count.present? && @decision_count > 0 %>
 
-    <div class="row g-4 mb-4">
+    <div class="row g-4 decision-pattern-analysis__summary">
 
       <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-3 h-100">
+        <div class="card decision-pattern-analysis__card h-100">
           <div class="card-body text-center py-4">
 
-            <p class="text-muted mb-2">
+            <div class="decision-pattern-analysis__summary-label">
               総意思決定数
-            </p>
+            </div>
 
-            <h2 class="fw-bold mb-0">
+            <p class="decision-pattern-analysis__summary-value">
               <%= @decision_count %>件
-            </h2>
+            </p>
 
           </div>
         </div>
       </div>
 
       <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-3 h-100">
+        <div class="card decision-pattern-analysis__card h-100">
           <div class="card-body text-center py-4">
 
-            <p class="text-muted mb-2">
+            <div class="decision-pattern-analysis__summary-label">
               最も多いカテゴリ
-            </p>
+            </div>
 
             <% if @most_category.present? %>
 
-              <h2 class="fw-bold mb-1">
+              <p class="decision-pattern-analysis__summary-value">
                 <%= @most_category.first %>
-              </h2>
+              </p>
 
               <small class="text-muted">
                 <%= @most_category.last %>件
@@ -58,16 +58,18 @@
 
     <% if @category_counts.present? %>
 
-      <div class="card shadow-sm border-0 rounded-3 mb-4">
+      <div class="card decision-pattern-analysis__card mb-4">
 
         <div class="card-body p-4">
 
-          <h2 class="h5 fw-bold mb-4">
+          <h2 class="decision-pattern-analysis__section-title">
             カテゴリ別意思決定数
           </h2>
 
-          <%= column_chart @category_counts,
-                height: "350px" %>
+          <div class="decision-pattern-analysis__chart">
+            <%= column_chart @category_counts,
+                  height: "350px" %>
+          </div>
 
         </div>
 
@@ -75,16 +77,18 @@
 
     <% end %>
 
-    <div class="card shadow-sm border-0 rounded-3 mb-4">
+    <div class="card decision-pattern-analysis__card mb-4">
 
       <div class="card-body p-4">
 
-        <h2 class="h5 fw-bold mb-4">
+        <h2 class="decision-pattern-analysis__section-title">
           月別意思決定数
         </h2>
 
-        <%= column_chart @decision_counts,
-              height: "350px" %>
+        <div class="decision-pattern-analysis__chart">
+          <%= column_chart @decision_counts,
+                height: "350px" %>
+        </div>
 
       </div>
 
@@ -92,28 +96,22 @@
 
     <% if @category_counts.present? %>
 
-      <div class="card shadow-sm border-0 rounded-3">
+      <div class="card decision-pattern-analysis__card">
 
         <div class="card-body p-4">
 
-          <h2 class="h5 fw-bold mb-4">
+          <h2 class="decision-pattern-analysis__section-title">
             カテゴリ別集計
           </h2>
 
-
           <div class="table-responsive">
 
-            <table class="table table-striped mb-0">
+            <table class="table table-striped decision-pattern-analysis__table">
 
               <thead>
                 <tr>
-                  <th>
-                    カテゴリ
-                  </th>
-
-                  <th class="text-end">
-                    件数
-                  </th>
+                  <th>カテゴリ</th>
+                  <th class="text-end">件数</th>
                 </tr>
               </thead>
 
@@ -122,16 +120,13 @@
                 <% @category_counts.each do |category, count| %>
 
                   <tr>
-
                     <td>
                       <%= category %>
                     </td>
 
-
                     <td class="text-end">
                       <%= count %>件
                     </td>
-
                   </tr>
 
                 <% end %>
