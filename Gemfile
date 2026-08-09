@@ -79,3 +79,5 @@ gem "chartkick"
 gem "groupdate"
 
 gem "pundit"
+
+gem "omniauth"
