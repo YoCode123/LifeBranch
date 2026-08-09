@@ -112,6 +112,10 @@
   <%= link_to "感情分析", emotion_analysis_path, class: "dropdown-item" %>
 </li>
 
+<li class="d-md-none">
+  <%= link_to "通知設定", notification_settings_path, class: "dropdown-item" %>
+</li>
+
   <li>
     <hr class="dropdown-divider">
   </li>
@@ -193,7 +197,10 @@
       class: "nav-link  w-100" %>
 
      <%= link_to "感情分析", emotion_analysis_path, class: "nav-link w-100" %>
-
+     <%= link_to "通知設定",
+          notification_settings_path,
+          class: "nav-link w-100",
+          data: { turbo: false } %>
             </ul>
 
           </aside>

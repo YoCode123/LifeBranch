@@ -36,7 +36,15 @@ Rails.application.routes.draw do
     end
   end
 
+  get "notification_settings",
+      to: "notification_settings#edit",
+      as: :notification_settings
+
+  patch "notification_settings",
+        to: "notification_settings#update"
+
   get "up" => "rails/health#show", as: :rails_health_check
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
