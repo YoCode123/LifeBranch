@@ -1,5 +1,26 @@
-<h1>LifeBranchからのお知らせ</h1>
+<h1>最近の決断を振り返ってみませんか？</h1>
 
-<p><%= @user.name %>さん</p>
+<p><%= @user.email %> さん</p>
 
-<p>LifeBranchからのお知らせです。</p>
+<p>LifeBranchに記録した最近の決断を振り返ってみましょう。</p>
+
+<h2><%= @decision.title %></h2>
+
+<p>
+  <strong>決断した日：</strong>
+  <%= @decision.created_at.strftime("%Y年%m月%d日") %>
+</p>
+
+<% if @decision.reason.present? %>
+  <p>
+    <strong>決断した理由：</strong><br>
+    <%= @decision.reason %>
+  </p>
+<% end %>
+
+<p>
+  あのとき、なぜこの決断をしたのか。
+  今の自分から振り返ってみませんか？
+</p>
+
+<p>LifeBranch</p>
