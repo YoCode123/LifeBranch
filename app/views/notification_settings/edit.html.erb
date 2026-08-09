@@ -1,0 +1,31 @@
+<div class="max-w-2xl mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6">通知設定</h1>
+
+  <%= form_with model: current_user,
+                url: notification_settings_path,
+                method: :patch do |form| %>
+
+    <div class="mb-6">
+      <%= form.label :email_notification_enabled,
+                     "メール通知",
+                     class: "block font-medium mb-2" %>
+
+      <div class="flex items-center gap-2">
+        <%= form.check_box :email_notification_enabled %>
+        <span>メール通知を受け取る</span>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <%= form.label :email_notification_time,
+                     "通知時刻",
+                     class: "block font-medium mb-2" %>
+
+      <%= form.time_field :email_notification_time,
+                          class: "border rounded px-3 py-2" %>
+    </div>
+
+    <%= form.submit "設定を保存",
+                    class: "px-4 py-2 rounded bg-blue-600 text-white" %>
+  <% end %>
+</div>
