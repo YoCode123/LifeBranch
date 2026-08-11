@@ -45,6 +45,8 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
+  get "/auth/:provider/callback", to: "sessions#omniauth"
+  get "/auth/failure", to: "sessions#failure"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

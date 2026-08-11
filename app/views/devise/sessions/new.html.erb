@@ -54,6 +54,16 @@
 
 <% end %>
 
+<!-- Google login -->
+
+<div class="d-grid mt-3">
+  <%= button_to "Googleでログイン",
+        "/auth/google_oauth2",
+        method: :post,
+        class: "btn btn-danger",
+        data: { turbo: false } %>
+</div>
+
 <!-- links -->
 <div class="mt-3 text-center">
   <%= render "devise/shared/links" %>
