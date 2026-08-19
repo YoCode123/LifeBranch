@@ -11,7 +11,17 @@ class SessionsController < ApplicationController
 
     sign_in user
 
-    redirect_to dashboard_path, notice: "#{auth.provider}ログインに成功しました。"
+    provider_name =
+      case auth.provider
+      when "google_oauth2"
+        "Google"
+      when "github"
+        "GitHub"
+      else
+        auth.provider
+      end
+
+    redirect_to dashboard_path, notice: "#{provider_name}ログインに成功しました。"
   end
 
   def failure
