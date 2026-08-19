@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_121529) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_19_141240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -87,6 +87,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_121529) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "oauth_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["provider", "uid"], name: "index_oauth_accounts_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_oauth_accounts_on_user_id"
   end
 
   create_table "options", force: :cascade do |t|
@@ -231,15 +241,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_121529) do
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"
     t.string "name"
-    t.string "provider"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "sign_in_count"
-    t.string "uid"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -251,6 +258,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_121529) do
   add_foreign_key "decisions", "options", column: "selected_option_id", on_delete: :nullify
   add_foreign_key "decisions", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "oauth_accounts", "users"
   add_foreign_key "options", "decisions"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
