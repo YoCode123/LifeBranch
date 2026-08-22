@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   get "privacy_policy", to: "home#privacy_policy"
 
+  get "terms_of_service", to: "home#terms_of_service"
+
   get "emotion_analysis", to: "emotion_analysis#index"
 
   get "decision_pattern_analysis",
