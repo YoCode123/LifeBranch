@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "home#index"
 
+  get "privacy_policy", to: "home#privacy_policy"
+
   get "emotion_analysis", to: "emotion_analysis#index"
 
   get "decision_pattern_analysis",

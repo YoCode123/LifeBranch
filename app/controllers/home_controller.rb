@@ -13,4 +13,6 @@ class HomeController < ApplicationController
     @decision_count = current_user.decisions.count
     @most_emotion = @emotion_chart.max_by { |_, count| count }
   end
+  def privacy_policy
+  end
 end
