@@ -1,0 +1,30 @@
+<div class="container py-4">
+  <h1 class="mb-4">お問い合わせ</h1>
+
+  <%= form_with url: contact_path, method: :post, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, "お名前", class: "form-label" %>
+      <%= form.text_field :name,
+            class: "form-control",
+            required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :email, "メールアドレス", class: "form-label" %>
+      <%= form.email_field :email,
+            class: "form-control",
+            required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :message, "お問い合わせ内容", class: "form-label" %>
+      <%= form.text_area :message,
+            class: "form-control",
+            rows: 8,
+            required: true %>
+    </div>
+
+    <%= form.submit "送信",
+          class: "btn btn-primary" %>
+  <% end %>
+</div>
