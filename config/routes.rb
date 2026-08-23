@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
   get "emotion_analysis", to: "emotion_analysis#index"
 
+  get "contact", to: "contacts#new", as: :contact
+  post "contact", to: "contacts#create"
+
   get "decision_pattern_analysis",
     to: "decision_pattern_analysis#index"
 
