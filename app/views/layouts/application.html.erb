@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
   <head>
     <title><%= content_for(:title) || "Life Branch" %></title>
 
+    <meta name="description" content="人生の分岐点を記録し、未来につなげる">
     <meta property="og:title" content="LifeBranch">
     <meta property="og:description" content="人生の分岐点を記録し、未来につなげる">
     <meta property="og:type" content="website">
@@ -62,13 +63,15 @@
               class="btn border-0 dropdown-toggle d-flex align-items-center gap-2"
               type="button"
               data-bs-toggle="dropdown"
-              aria-expanded="false">
+              aria-expanded="false"
+              aria-label="ユーザーメニューを開く">
 
               <% if current_user.avatar.attached? %>
 
                 <%= image_tag current_user.avatar,
-                      class: "rounded-circle object-fit-cover",
-                      style: "width:40px;height:40px;" %>
+                    alt: "#{current_user.name}さんのプロフィール画像",
+                    class: "rounded-circle object-fit-cover",
+                    style: "width:40px;height:40px;" %>
 
               <% else %>
 
