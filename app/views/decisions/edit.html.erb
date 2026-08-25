@@ -21,7 +21,7 @@
 <%= form_with model: @decision,
       local: true,
       data: {
-        controller: "decision-preview loading",
+        controller: "decision-form decision-preview loading",
         action: "submit->loading#submit"
       } do |f| %>
 
