@@ -19,73 +19,84 @@ export default class extends Controller {
     const currentChecked =
       this.finalTarget.querySelector(
         "input[type='radio']:checked"
-      )?.dataset.optionId || this.selectedOptionId
+      )?.value || this.selectedOptionId
 
     this.finalTarget.innerHTML = ""
+
+    let newOptionIndex = 0
 
     this.inputTargets
       .filter(input => !input.closest("#option-template"))
       .forEach((input, index) => {
-
         const optionItem =
           input.closest(".option-item")
 
+        if (!optionItem) return
+
+        // 削除された選択肢は最終決断にも表示しない
+        const destroyFlag =
+          optionItem.querySelector(".destroy-flag")
+
         if (
-          !optionItem ||
+          destroyFlag?.value === "1" ||
           optionItem.style.display === "none"
         ) {
           return
         }
 
-        const optionIdInput =
+        // DBに保存済みの選択肢ならDBのIDを使う
+        const idInput =
           optionItem.querySelector(
-            "input[name*='[id]']"
+            "input[type='hidden'][name*='[id]']"
           )
 
-        const savedOptionId =
-          optionIdInput?.value
+        let optionId = idInput?.value
 
-        const optionId =
-          savedOptionId || `new_${index}`
-
-
+        // 新規選択肢なら仮IDを付ける
+        if (!optionId) {
+          optionId = `new_${newOptionIndex}`
+          newOptionIndex++
+        }
 
         const value =
-          input.value.trim() || `選択肢${index + 1}`
-
-        const checked =
-          String(currentChecked) === String(optionId)
+          input.value.trim() ||
+          `選択肢${index + 1}`
 
         const wrapper =
           document.createElement("div")
 
         wrapper.className = "form-check mb-2"
 
-        wrapper.innerHTML = `
-          <input
-            type="radio"
-            name="decision[selected_option_temp]"
-            value="${optionId}"
-            data-option-id="${optionId}"
-            class="form-check-input"
-            id="option_${index}"
-            ${checked ? "checked" : ""}
-          >
+        const radio =
+          document.createElement("input")
 
-          <label
-            class="form-check-label"
-            for="option_${index}">
-            ${value}
-          </label>
-        `
+        radio.type = "radio"
+        radio.name = "decision[selected_option_temp]"
+        radio.value = optionId
+        radio.dataset.optionId = optionId
+        radio.className = "form-check-input"
+        radio.id = `option_${index}`
+
+        if (
+          String(currentChecked) === String(optionId)
+        ) {
+          radio.checked = true
+        }
+
+        const label =
+          document.createElement("label")
+
+        label.className = "form-check-label"
+        label.htmlFor = radio.id
+        label.textContent = value
+
+        wrapper.appendChild(radio)
+        wrapper.appendChild(label)
 
         this.finalTarget.appendChild(wrapper)
-      })
 
-    this.finalTarget
-      .querySelectorAll("input[type='radio']")
-      .forEach(radio => {
         radio.addEventListener("change", () => {
+          this.selectedOptionId = radio.value
           this.updatePreview()
         })
       })
@@ -102,8 +113,7 @@ export default class extends Controller {
       return
     }
 
-    this.selectedOptionId =
-      checked.dataset.optionId
+    this.selectedOptionId = checked.value
 
     const label =
       checked.closest(".form-check")
