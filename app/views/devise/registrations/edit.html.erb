@@ -13,34 +13,24 @@
   </div>
 
   <div class="mb-3" data-controller="image-preview">
+  <%= f.label :avatar, "プロフィール画像", class: "form-label" %>
 
-    <%= f.label :avatar, "プロフィール画像", class: "form-label" %>
-
-    <div class="mb-2">
-      <% if resource.avatar.attached? %>
-        <%= image_tag resource.avatar,
-              width: 80,
-              height: 80,
-              class: "rounded-circle object-fit-cover",
-              data: { image_preview_target: "preview" } %>
-      <% else %>
-        <img
-          src="https://placehold.jp/80x80.png"
-          width="80"
-          height="80"
-          class="rounded-circle object-fit-cover"
-          data-image_preview_target="preview">
-      <% end %>
-    </div>
-
-    <%= f.file_field :avatar,
-          class: "form-control",
-          data: {
-            image_preview_target: "input",
-            action: "change->image-preview#previewImage"
-          } %>
-
+  <div class="mb-2">
+    <img
+      src="<%= resource.avatar.attached? ? url_for(resource.avatar) : 'https://placehold.jp/80x80.png' %>"
+      width="80"
+      height="80"
+      class="rounded-circle object-fit-cover"
+      data-image-preview-target="preview">
   </div>
+
+  <%= f.file_field :avatar,
+        class: "form-control",
+        data: {
+          image_preview_target: "input",
+          action: "change->image-preview#previewImage"
+        } %>
+</div>
 
   <div class="mb-3">
     <%= f.label :email, class: "form-label" %>
