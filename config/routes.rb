@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "faqs/index"
   get "decision_pattern_analysis/index"
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -25,6 +26,8 @@ Rails.application.routes.draw do
 
   get "contact", to: "contacts#new", as: :contact
   post "contact", to: "contacts#create"
+
+  get "faq", to: "faqs#index"
 
   get "decision_pattern_analysis",
     to: "decision_pattern_analysis#index"
