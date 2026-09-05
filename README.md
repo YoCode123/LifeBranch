@@ -422,7 +422,7 @@ Webアプリケーションを手軽にデプロイ・公開でき、個人開�
 
 ## ER図
 
-![LifeBranch ER図](https://gyazo.com/f620301565686eb1bf8976663bfcc086)
+![LifeBranch ER図]([![Image from Gyazo](https://i.gyazo.com/f620301565686eb1bf8976663bfcc086.png)](https://gyazo.com/f620301565686eb1bf8976663bfcc086))
 
 ---
 
