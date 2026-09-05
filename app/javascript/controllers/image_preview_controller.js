@@ -5,11 +5,14 @@ export default class extends Controller {
 
   previewImage() {
     const file = this.inputTarget.files[0]
+
     if (!file) return
 
     const reader = new FileReader()
 
     reader.onload = (event) => {
+      if (!this.hasPreviewTarget) return
+
       this.previewTarget.src = event.target.result
     }
 
